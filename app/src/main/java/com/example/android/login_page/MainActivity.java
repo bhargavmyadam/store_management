@@ -3,23 +3,25 @@ package com.example.android.login_page;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import com.example.android.login_page.DAO.UserDao;
+import com.example.android.login_page.DAO.AdminDao;
 import com.example.android.login_page.DataBaseHelper.DBHelper;
+import com.example.android.login_page.Entity.Admin;
 
 public class MainActivity extends AppCompatActivity {
 
     Button mRegisterButton;
     Button mLoginButton;
     DBHelper dbHelper;
-    EditText mUsername;
+    EditText mEmail;
     EditText mPassword;
+    TextView mWrongCredentials;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +30,9 @@ public class MainActivity extends AppCompatActivity {
         mRegisterButton = findViewById(R.id.button_signup);
         mLoginButton = findViewById(R.id.button_signin);
         dbHelper = new DBHelper(this);
-        mUsername = findViewById(R.id.et_username);
+        mEmail = findViewById(R.id.et_email);
         mPassword = findViewById(R.id.et_password);
+        mWrongCredentials = findViewById(R.id.tv_wrong_credentials);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,19 +44,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db = dbHelper.getReadableDatabase();
-                String email = mUsername.getText().toString();
+                String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
-                if(UserDao.getUserDetails(db,email,password).getCount()!=0){
-                   Cursor cursor = UserDao.getUserDetails(db,email,password);
-                   cursor.moveToNext();
+                Admin admin = AdminDao.getUserDetails(db,email,password);
+                if(admin!=null){
+                    mWrongCredentials.setVisibility(View.INVISIBLE);
                     Intent intent = new Intent(MainActivity.this,DashBoard.class);
-                    intent.putExtra("username",cursor.getString(cursor.getColumnIndexOrThrow(UserDao.COLUMN_NAME_USERNAME)));
-                    intent.putExtra("email",cursor.getString(cursor.getColumnIndexOrThrow(UserDao.COLUMN_NAME_EMAIL)));
-                    intent.putExtra("phone",cursor.getString(cursor.getColumnIndexOrThrow(UserDao.COLUMN_NAME_PHONE)));
-                    intent.putExtra("location",cursor.getString(cursor.getColumnIndexOrThrow(UserDao.COLUMN_NAME_LOCATION)));
+                    intent.putExtra("admin",admin);
                     startActivity(intent);
-
-                };
+                }
+                else{
+                    mWrongCredentials.setVisibility(View.VISIBLE);
+                }
             }
         });
     }

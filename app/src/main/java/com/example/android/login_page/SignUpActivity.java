@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.android.login_page.DAO.UserDao;
+import com.example.android.login_page.DAO.AdminDao;
 import com.example.android.login_page.DataBaseHelper.DBHelper;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -18,8 +18,6 @@ public class SignUpActivity extends AppCompatActivity {
     Button mLoginButton;
     EditText mFullName;
     EditText mEmail;
-    EditText mPhone;
-    EditText mLocation;
     EditText mPassword;
     EditText mConfirmPassword;
     Button mSignUp;
@@ -32,8 +30,6 @@ public class SignUpActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.bt_already_user);
         mFullName = findViewById(R.id.et_fullname);
         mEmail = findViewById(R.id.userEmailId);
-        mPhone = findViewById(R.id.mobileNumber);
-        mLocation = findViewById(R.id.location);
         mPassword = findViewById(R.id.et_password);
         mConfirmPassword = findViewById(R.id.confirmPassword);
         mSignUp = findViewById(R.id.signUpBtn);
@@ -51,12 +47,10 @@ public class SignUpActivity extends AppCompatActivity {
                 if(validateFields()){
                     SQLiteDatabase db = dbHelper.getWritableDatabase();
                     ContentValues values = new ContentValues();
-                    values.put(UserDao.COLUMN_NAME_EMAIL,mEmail.getText().toString());
-                    values.put(UserDao.COLUMN_NAME_USERNAME,mFullName.getText().toString());
-                    values.put(UserDao.COLUMN_NAME_PASSWORD,mConfirmPassword.getText().toString());
-                    values.put(UserDao.COLUMN_NAME_LOCATION,mLocation.getText().toString());
-                    values.put(UserDao.COLUMN_NAME_PHONE,mPhone.getText().toString());
-                    UserDao.insertValues(db,values);
+                    values.put(AdminDao.COLUMN_NAME_EMAIL,mEmail.getText().toString());
+                    values.put(AdminDao.COLUMN_NAME_ADMIN_NAME,mFullName.getText().toString());
+                    values.put(AdminDao.COLUMN_NAME_PASSWORD,mConfirmPassword.getText().toString());
+                    AdminDao.insertValues(db,values);
                     Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
                     startActivity(intent);
                 }

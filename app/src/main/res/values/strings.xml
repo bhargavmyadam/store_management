@@ -36,4 +36,5 @@
     <string name="submit">SUBMIT</string>
     <string name="back">BACK</string>
     <string name="register">Register</string>
+    <string name="hint_wrong_credentials">Wrong Credentials!</string>
 </resources>
