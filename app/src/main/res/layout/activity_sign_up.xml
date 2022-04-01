@@ -104,6 +104,16 @@
             android:textColor="@color/md_black_1000"
             android:textColorHint="@color/md_black_1000"
             android:textSize="16sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_error_message"
+            android:visibility="invisible"
+            android:textSize="22sp"
+            android:textColor="@color/md_red_500"
+            android:textAlignment="center"
+            android:gravity="center_horizontal">
+        </TextView>
 
 
 

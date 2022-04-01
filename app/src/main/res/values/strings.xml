@@ -37,4 +37,8 @@
     <string name="back">BACK</string>
     <string name="register">Register</string>
     <string name="hint_wrong_credentials">Wrong Credentials!</string>
+    <string name="empty_fields">Fields cannot be left empty!</string>
+    <string name="invalid_email">Invalid email Id!</string>
+    <string name="invalid_password">Invalid password!</string>
+    <string name="password_match">Passwords do not match!</string>
 </resources>

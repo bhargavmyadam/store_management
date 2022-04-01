@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.android.login_page.DAO.AdminDao;
 import com.example.android.login_page.DataBaseHelper.DBHelper;
+
+import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -21,6 +24,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText mPassword;
     EditText mConfirmPassword;
     Button mSignUp;
+    TextView mErrorMsg;
     DBHelper dbHelper;
 
     @Override
@@ -30,9 +34,10 @@ public class SignUpActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.bt_already_user);
         mFullName = findViewById(R.id.et_fullname);
         mEmail = findViewById(R.id.userEmailId);
-        mPassword = findViewById(R.id.et_password);
+        mPassword = findViewById(R.id.password);
         mConfirmPassword = findViewById(R.id.confirmPassword);
         mSignUp = findViewById(R.id.signUpBtn);
+        mErrorMsg = findViewById(R.id.tv_error_message);
         dbHelper = new DBHelper(this);
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +64,28 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public boolean validateFields(){
-        return true;
+        if(mFullName.getText() != null && mEmail.getText() != null && mPassword.getText()!=null && mConfirmPassword.getText() != null) {
+            if(Pattern.matches("^(.+)@(.+)$",mEmail.getText().toString())){
+                System.out.println("EMAIL CORRECT!");
+               if(mPassword.getText().toString().length() < 8){
+                   if(mPassword.getText().toString().equals(mConfirmPassword.getText().toString())){
+                       mErrorMsg.setVisibility(View.INVISIBLE);
+                       return true;
+                   }
+                   mErrorMsg.setText(R.string.password_match);
+                   mErrorMsg.setVisibility(View.VISIBLE);
+                   return false;
+               }
+               mErrorMsg.setText(R.string.invalid_password);
+               mErrorMsg.setVisibility(View.VISIBLE);
+               return false;
+            }
+            mErrorMsg.setText(R.string.invalid_email);
+            mErrorMsg.setVisibility(View.VISIBLE);
+            return false;
+        }
+        mErrorMsg.setText(R.string.empty_fields);
+        mErrorMsg.setVisibility(View.VISIBLE);
+        return false;
     }
 }
