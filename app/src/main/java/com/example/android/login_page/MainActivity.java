@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 Admin admin = AdminDao.getUserDetails(db,email,password);
                 if(admin!=null){
                     mWrongCredentials.setVisibility(View.INVISIBLE);
-                    Intent intent = new Intent(MainActivity.this,DashBoard.class);
+                    Intent intent = new Intent(MainActivity.this, DashBoardActivity.class);
                     intent.putExtra("admin",admin);
                     startActivity(intent);
                 }
