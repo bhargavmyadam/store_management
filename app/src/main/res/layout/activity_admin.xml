@@ -4,10 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_purple_50"
     tools:context=".AdminActivity">
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_admin_details">
-    </TextView>
+        android:orientation="vertical"
+        android:background="@color/md_purple_50">
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="186dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/admin">
+        </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_admin_name"
+            android:text="NAME"
+            android:fontFamily="@font/googlesans_bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_admin_name_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:background="@color/white"
+            android:textSize="26sp"
+            android:textColor="@color/md_black_1000"
+            android:textAlignment="center">
+        </TextView>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_admin_email"
+            android:text="EMAIL"
+            android:fontFamily="@font/googlesans_bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_admin_email_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:background="@color/white"
+            android:textSize="26sp"
+            android:textColor="@color/md_black_1000"
+            android:textAlignment="center">
+        </TextView>
+
+    </LinearLayout>
+
 </ScrollView>

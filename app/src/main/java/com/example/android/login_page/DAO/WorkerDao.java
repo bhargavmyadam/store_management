@@ -14,7 +14,8 @@ public class WorkerDao implements BaseColumns {
 
     public static final String SQL_CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME + "(" + COLUMN_NAME_WORKER_ID + " INTEGER PRIMARY KEY," +
             COLUMN_NAME_WORKER_NAME + " TEXT," + COLUMN_NAME_WORKER_SALARY + " INTEGER,"+COLUMN_NAME_STREET + " TEXT," + COLUMN_NAME_CITY + " TEXT,"
-            + COLUMN_NAME_HOUSE_NO + " TEXT,"+ COLUMN_NAME_ADMIN_ID + " INTEGER)";
+            + COLUMN_NAME_HOUSE_NO + " TEXT,"+ COLUMN_NAME_ADMIN_ID + " INTEGER, FOREIGN KEY (" + COLUMN_NAME_ADMIN_ID + ") REFERENCES " +
+            AdminDao.TABLE_NAME + "(" + AdminDao.COLUMN_NAME_ADMIN_ID + ")";
 
     public static final String SQL_DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 }
