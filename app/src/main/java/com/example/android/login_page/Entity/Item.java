@@ -7,7 +7,8 @@ public class Item implements Serializable {
     private String itemName;
     private String brand;
     private int price;
-
+    private String category;
+    private int Quantity;
     public int getItemId() {
         return itemId;
     }
@@ -56,6 +57,5 @@ public class Item implements Serializable {
         Quantity = quantity;
     }
 
-    private String category;
-    private int Quantity;
+
 }
