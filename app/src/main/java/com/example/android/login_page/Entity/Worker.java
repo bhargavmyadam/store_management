@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Worker implements Serializable {
   private int workerId;
-  private int workerName;
+  private String workerName;
   private int workerSalary;
   private String street;
   private String city;
@@ -20,11 +20,11 @@ public class Worker implements Serializable {
         this.workerId = workerId;
     }
 
-    public int getWorkerName() {
+    public String getWorkerName() {
         return workerName;
     }
 
-    public void setWorkerName(int workerName) {
+    public void setWorkerName(String workerName) {
         this.workerName = workerName;
     }
 
