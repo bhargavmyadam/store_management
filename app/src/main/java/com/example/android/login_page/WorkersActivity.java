@@ -21,6 +21,7 @@ public class WorkersActivity extends AppCompatActivity {
     FloatingActionButton mHomeButton;
     RecyclerView mRecyclerView;
     Worker[] workers;
+    FloatingActionButton mAddButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,7 @@ public class WorkersActivity extends AppCompatActivity {
         Intent intent = getIntent();
         admin = (Admin)intent.getSerializableExtra("admin");
         mHomeButton = findViewById(R.id.bt_home);
+        mAddButton = findViewById(R.id.bt_add);
         mRecyclerView = findViewById(R.id.recyclerView);
         Worker worker = new Worker();
         worker.setWorkerId(1);
@@ -46,6 +48,14 @@ public class WorkersActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(WorkersActivity.this,DashBoardActivity.class);
+                intent.putExtra("admin",admin);
+                startActivity(intent);
+            }
+        });
+        mAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WorkersActivity.this,AddWorkerActivity.class);
                 intent.putExtra("admin",admin);
                 startActivity(intent);
             }
