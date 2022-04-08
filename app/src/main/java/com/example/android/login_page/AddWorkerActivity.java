@@ -2,14 +2,23 @@ package com.example.android.login_page;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.example.android.login_page.DAO.WorkerContactDao;
+import com.example.android.login_page.DAO.WorkerDao;
 import com.example.android.login_page.DataBaseHelper.DBHelper;
 import com.example.android.login_page.Entity.Admin;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddWorkerActivity extends AppCompatActivity {
     FloatingActionButton mHomeButton;
@@ -21,6 +30,8 @@ public class AddWorkerActivity extends AppCompatActivity {
     EditText mStreet;
     EditText mCity;
     EditText mHouseNumber;
+    Button mAddButton;
+    TextView mErrorMsg;
     DBHelper dbHelper;
 
     @Override
@@ -37,7 +48,32 @@ public class AddWorkerActivity extends AppCompatActivity {
         mStreet = findViewById(R.id.et_street);
         mCity = findViewById(R.id.et_city);
         mHouseNumber = findViewById(R.id.et_house_number);
+        mAddButton = findViewById(R.id.bt_add);
+        mErrorMsg = findViewById(R.id.tv_error_message);
         dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        mAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(validateFields()){
+                    ContentValues values = new ContentValues();
+                    values.put(WorkerDao.COLUMN_NAME_WORKER_NAME,mWorkerName.getText().toString());
+                    values.put(WorkerDao.COLUMN_NAME_WORKER_SALARY, Integer.parseInt(mSalary.getText().toString()));
+                    values.put(WorkerDao.COLUMN_NAME_STREET,mStreet.getText().toString());
+                    values.put(WorkerDao.COLUMN_NAME_CITY,mCity.getText().toString());
+                    values.put(WorkerDao.COLUMN_NAME_HOUSE_NO,Integer.parseInt(mHouseNumber.getText().toString()));
+                    values.put(WorkerDao.COLUMN_NAME_ADMIN_ID,admin.getAdminID());
+                    int workerId = WorkerDao.insertValues(db,values);
+                    List<String> phoneNumbers = new ArrayList<>();
+                    phoneNumbers.add(mPhone1.getText().toString());
+                    phoneNumbers.add(mPhone2.getText().toString());
+                    WorkerContactDao.insertValues(db,workerId,phoneNumbers);
+                    Intent intent = new Intent(AddWorkerActivity.this,WorkersActivity.class);
+                    intent.putExtra("admin",admin);
+                    startActivity(intent);
+                }
+            }
+        });
         mHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,5 +82,25 @@ public class AddWorkerActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public boolean validateFields(){
+        if(mWorkerName.getText() != null && !mWorkerName.getText().toString().isEmpty()){
+            if(mSalary.getText()!=null && !mSalary.getText().toString().isEmpty()){
+                if(mPhone1.getText() != null && !mPhone1.getText().toString().isEmpty()){
+                    if(mPhone1.getText().toString().length() == 10){
+                        return true;
+                    }
+                    mErrorMsg.setText(mPhone1.getText().toString());
+                    return false;
+                }
+                mErrorMsg.setText(R.string.empty_fields);
+                return false;
+            }
+            mErrorMsg.setText(R.string.empty_fields);
+            return false;
+        }
+        mErrorMsg.setText(R.string.empty_fields);
+        return false;
     }
 }

@@ -10,10 +10,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/et_city"
-            android:layout_width="208dp"
-            android:layout_height="41dp"
+            android:layout_width="204dp"
+            android:layout_height="38dp"
             android:layout_marginTop="468dp"
             android:ems="10"
             android:inputType="textPersonName"
@@ -204,7 +205,7 @@
         <EditText
             android:id="@+id/et_house_number"
             android:layout_width="187dp"
-            android:layout_height="32dp"
+            android:layout_height="29dp"
             android:layout_marginTop="456dp"
             android:ems="10"
             android:inputType="numberSigned"
@@ -216,23 +217,52 @@
             android:id="@+id/et_phone1"
             android:layout_width="208dp"
             android:layout_height="38dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
             android:inputType="phone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toTopOf="@+id/textView5"
+            />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/bt_home"
             android:layout_width="43dp"
             android:layout_height="34dp"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="180dp"
-            android:layout_marginRight="180dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            app:layout_constraintTop_toTopOf="@+id/textView"
             app:srcCompat="@drawable/ic_home_black_24dp" />
+
+        <Button
+            android:id="@+id/bt_add"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:background="@color/md_purple_100"
+            android:fontFamily="@font/baloo_bhaina"
+            android:text="ADD"
+            android:textColor="@color/md_teal_300"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.528"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="725dp" />
+
+        <TextView
+            android:id="@+id/tv_error_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/bt_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_house_number"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/md_red_200"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

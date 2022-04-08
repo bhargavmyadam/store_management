@@ -5,10 +5,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.android.login_page.Adapters.WorkerAdapter;
+import com.example.android.login_page.DAO.WorkerDao;
+import com.example.android.login_page.DataBaseHelper.DBHelper;
 import com.example.android.login_page.Entity.Admin;
 import com.example.android.login_page.Entity.Worker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,6 +25,7 @@ public class WorkersActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     Worker[] workers;
     FloatingActionButton mAddButton;
+    DBHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,16 +35,9 @@ public class WorkersActivity extends AppCompatActivity {
         mHomeButton = findViewById(R.id.bt_home);
         mAddButton = findViewById(R.id.bt_add);
         mRecyclerView = findViewById(R.id.recyclerView);
-        Worker worker = new Worker();
-        worker.setWorkerId(1);
-        worker.setWorkerName("Ramesh");
-        worker.setWorkerSalary(20000);
-        ArrayList<String> phones = new ArrayList<>();
-        phones.add("8008369511");
-        worker.setPhoneNumber(phones);
-        Worker[] tempWorkers = new Worker[1];
-        tempWorkers[0] = worker;
-        workers = tempWorkers;
+        dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        workers = WorkerDao.getAllWorkers(db);
         WorkerAdapter adapter = new WorkerAdapter(workers);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         mRecyclerView.setAdapter(adapter);
