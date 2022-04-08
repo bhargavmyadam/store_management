@@ -67,4 +67,17 @@ public class Worker implements Serializable {
     public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
+
+    public Worker(int workerId, String workerName, int workerSalary, String street, String city, String houseNumber, ArrayList<String> phoneNumbers) {
+        this.workerId = workerId;
+        this.workerName = workerName;
+        this.workerSalary = workerSalary;
+        this.street = street;
+        this.city = city;
+        this.houseNumber = houseNumber;
+        this.phoneNumbers = phoneNumbers;
+    }
+
+    public Worker() {
+    }
 }
