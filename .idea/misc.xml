@@ -12,8 +12,9 @@
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_add_worker.xml" value="0.2" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_admin.xml" value="0.12487335359675786" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_dash_board.xml" value="0.12487335359675786" />
+        <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_worker.xml" value="0.25677083333333334" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_workers.xml" value="0.2" />
-        <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/worker_item.xml" value="0.18604651162790697" />
+        <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/worker_item.xml" value="0.1" />
       </map>
     </option>
   </component>

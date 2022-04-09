@@ -47,11 +47,13 @@
         app:srcCompat="@drawable/ic_home_black_24dp" />
 
     <SearchView
+        android:id="@+id/sv_worker_name"
+        android:queryHint="Worker Name"
         android:layout_width="283dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

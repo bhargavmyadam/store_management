@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 
 import com.example.android.login_page.Adapters.WorkerAdapter;
 import com.example.android.login_page.DAO.WorkerDao;
@@ -25,6 +26,7 @@ public class WorkersActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     Worker[] workers;
     FloatingActionButton mAddButton;
+    SearchView mWorkerSearch;
     DBHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +37,41 @@ public class WorkersActivity extends AppCompatActivity {
         mHomeButton = findViewById(R.id.bt_home);
         mAddButton = findViewById(R.id.bt_add);
         mRecyclerView = findViewById(R.id.recyclerView);
+        mWorkerSearch = findViewById(R.id.sv_worker_name);
+        mWorkerSearch.setSubmitButtonEnabled(true);
         dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        workers = WorkerDao.getAllWorkers(db);
-        WorkerAdapter adapter = new WorkerAdapter(workers);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        mWorkerSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                if(s.isEmpty()){
+                    workers = WorkerDao.getAllWorkers(db);
+                }
+                else{
+                    workers = WorkerDao.getAllWorkersByName(db,s);
+                }
+                WorkerAdapter adapter = new WorkerAdapter(workers,new ClickHandler());
+                mRecyclerView.setAdapter(adapter);
+                mWorkerSearch.clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if(s.isEmpty()){
+                    workers = WorkerDao.getAllWorkers(db);
+                }
+                else{
+                    workers = WorkerDao.getAllWorkersByName(db,s);
+                }
+                WorkerAdapter adapter = new WorkerAdapter(workers,new ClickHandler());
+                mRecyclerView.setAdapter(adapter);
+                return true;
+            }
+        });
+        workers = WorkerDao.getAllWorkers(db);
+        WorkerAdapter adapter = new WorkerAdapter(workers,new ClickHandler());
         mRecyclerView.setAdapter(adapter);
         mHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,5 +89,15 @@ public class WorkersActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    public class ClickHandler implements WorkerAdapter.OnClickViewHolder{
+        @Override
+        public void onClick(Worker worker) {
+            Intent intent = new Intent(WorkersActivity.this,WorkerActivity.class);
+            intent.putExtra("worker",worker);
+            intent.putExtra("admin",admin);
+            startActivity(intent);
+
+        }
     }
 }
