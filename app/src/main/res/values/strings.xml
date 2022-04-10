@@ -42,4 +42,8 @@
     <string name="invalid_password">Invalid password!</string>
     <string name="password_match">Passwords do not match!</string>
     <string name="invalid_mobile">Invalid Mobile Number!</string>
+    <string name="done">DONE</string>
+    <string name="edit">EDIT</string>
+    <string name="cancel">CANCEL</string>
+    <string name="remove">REMOVE</string>
 </resources>
