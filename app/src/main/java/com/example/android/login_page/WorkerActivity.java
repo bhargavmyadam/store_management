@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.android.login_page.Entity.Admin;
@@ -13,7 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class WorkerActivity extends AppCompatActivity {
 
-    TextView mWorkerDetails;
+    EditText mName,mSalary,mPhone1,mPhone2,mStreet,mCity,mHouseNumber;
     Worker worker;
     Admin admin;
     FloatingActionButton mHomeButton;
@@ -21,14 +22,12 @@ public class WorkerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worker);
-        mWorkerDetails = findViewById(R.id.tv_worker_details);
         mHomeButton = findViewById(R.id.bt_home);
+        initFields();
         Intent intent = getIntent();
         worker = (Worker)intent.getSerializableExtra("worker");
         admin = (Admin)intent.getSerializableExtra("admin");
-        mWorkerDetails.setText("");
-        mWorkerDetails.append(worker.getWorkerName() + "\n");
-        mWorkerDetails.append(worker.getWorkerSalary() + "\n");
+        populateFields();
         mHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,4 +37,25 @@ public class WorkerActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void populateFields() {
+        mName.setText(worker.getWorkerName());
+        mSalary.setText(String.valueOf(worker.getWorkerSalary()));
+        mPhone1.setText(worker.getPhoneNumbers().get(0));
+        mPhone2.setText(worker.getPhoneNumbers().get(1));
+        mStreet.setText(worker.getStreet());
+        mCity.setText(worker.getCity());
+        mHouseNumber.setText(worker.getHouseNumber());
+    }
+
+    private void initFields() {
+        mName = findViewById(R.id.et_fullname);
+        mSalary = findViewById(R.id.et_salary);
+        mPhone1 = findViewById(R.id.et_phone1);
+        mPhone2 = findViewById(R.id.et_phone2);
+        mStreet = findViewById(R.id.et_street);
+        mCity = findViewById(R.id.et_city);
+        mHouseNumber = findViewById(R.id.et_house_number);
+    }
+
 }
