@@ -97,7 +97,6 @@ public class WorkersActivity extends AppCompatActivity {
             intent.putExtra("worker",worker);
             intent.putExtra("admin",admin);
             startActivity(intent);
-
         }
     }
 }

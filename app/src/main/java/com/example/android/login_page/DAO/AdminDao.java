@@ -42,4 +42,12 @@ public class AdminDao implements BaseColumns {
             return admin;
         }
     }
+
+    public static String getAdminName(SQLiteDatabase db, int adminId) {
+        String selection = COLUMN_NAME_ADMIN_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(adminId)};
+        Cursor cursor = db.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        cursor.moveToNext();
+        return cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_ADMIN_NAME));
+    }
 }

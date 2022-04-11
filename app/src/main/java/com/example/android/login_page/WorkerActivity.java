@@ -3,20 +3,25 @@ package com.example.android.login_page;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.android.login_page.DAO.AdminDao;
+import com.example.android.login_page.DAO.WorkerDao;
 import com.example.android.login_page.DataBaseHelper.DBHelper;
 import com.example.android.login_page.Entity.Admin;
 import com.example.android.login_page.Entity.Worker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 public class WorkerActivity extends AppCompatActivity {
 
-    EditText mName,mSalary,mPhone1,mPhone2,mStreet,mCity,mHouseNumber;
+    EditText mName,mSalary,mPhone1,mPhone2,mStreet,mCity,mHouseNumber,mAdminName;
     Worker worker;
     Admin admin;
     FloatingActionButton mHomeButton;
@@ -46,12 +51,34 @@ public class WorkerActivity extends AppCompatActivity {
                     enableFields();
                 }
                 else{
-                    mEdit.setText(R.string.edit);
-                    mRemove.setText(R.string.remove);
-                    populateFields();
+                    if(validateFields()){
+                        updateDatabase();
+                        mEdit.setText(R.string.edit);
+                        mRemove.setText(R.string.remove);
+                        populateFields();
+                    }
+
                 }
             }
         });
+    }
+
+    private void updateDatabase() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        worker.setWorkerName(mName.getText().toString());
+        worker.setWorkerSalary(Integer.parseInt(mSalary.getText().toString()));
+        ArrayList<String> phones = new ArrayList<String>();
+        phones.add(mPhone1.getText().toString());
+        phones.add(mPhone2.getText().toString());
+        worker.setPhoneNumber(phones);
+        worker.setStreet(mStreet.getText().toString());
+        worker.setCity(mCity.getText().toString());
+        worker.setHouseNumber(mHouseNumber.getText().toString());
+        WorkerDao.updateValues(db,worker);
+    }
+
+    private boolean validateFields() {
+        return true;
     }
 
     private void enableFields() {
@@ -72,6 +99,7 @@ public class WorkerActivity extends AppCompatActivity {
         mStreet.setText(worker.getStreet());
         mCity.setText(worker.getCity());
         mHouseNumber.setText(worker.getHouseNumber());
+        mAdminName.setText(AdminDao.getAdminName(dbHelper.getReadableDatabase(),worker.getAdminId()));
         mName.setEnabled(false);
         mSalary.setEnabled(false);
         mPhone1.setEnabled(false);
@@ -79,6 +107,7 @@ public class WorkerActivity extends AppCompatActivity {
         mStreet.setEnabled(false);
         mCity.setEnabled(false);
         mHouseNumber.setEnabled(false);
+        mAdminName.setEnabled(false);
 
     }
 
@@ -90,6 +119,7 @@ public class WorkerActivity extends AppCompatActivity {
         mStreet = findViewById(R.id.et_street);
         mCity = findViewById(R.id.et_city);
         mHouseNumber = findViewById(R.id.et_house_number);
+        mAdminName = findViewById(R.id.et_admin_name);
         mRemove = findViewById(R.id.bt_remove);
         mEdit = findViewById(R.id.bt_edit);
         mHomeButton = findViewById(R.id.bt_home);

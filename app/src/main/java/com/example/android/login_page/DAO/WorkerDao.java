@@ -29,7 +29,11 @@ public class WorkerDao implements BaseColumns {
 
     public static int insertValues(SQLiteDatabase db, ContentValues values){
         Cursor cursor = db.query(TABLE_NAME,null,null,null,null,null,null);
-        int newWorkerID = cursor.getCount()+1;
+        cursor.moveToLast();
+        int newWorkerID = 1;
+        if(cursor.getCount()!=0){
+            newWorkerID = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_WORKER_ID)) + 1;
+        }
         values.put(COLUMN_NAME_WORKER_ID,newWorkerID);
         long newRow = db.insert(TABLE_NAME,null,values);
         return newWorkerID;
@@ -47,7 +51,7 @@ public class WorkerDao implements BaseColumns {
             int houseNo = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_HOUSE_NO));
             int adminId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_ADMIN_ID));
             List<String> phoneNumbers = WorkerContactDao.getPhoneNumbers(db,id);
-            Worker worker = new Worker(id,name,salary,street,city,String.valueOf(houseNo),(ArrayList<String>) phoneNumbers);
+            Worker worker = new Worker(id,name,salary,street,city,String.valueOf(houseNo),(ArrayList<String>) phoneNumbers, adminId);
             workerList.add(worker);
         }
         Worker[] workers = new Worker[workerList.size()];
@@ -71,7 +75,7 @@ public class WorkerDao implements BaseColumns {
             int houseNo = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_HOUSE_NO));
             int adminId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_ADMIN_ID));
             List<String> phoneNumbers = WorkerContactDao.getPhoneNumbers(db,id);
-            Worker worker = new Worker(id,name,salary,street,city,String.valueOf(houseNo),(ArrayList<String>) phoneNumbers);
+            Worker worker = new Worker(id,name,salary,street,city,String.valueOf(houseNo),(ArrayList<String>) phoneNumbers, adminId);
             workerList.add(worker);
         }
         Worker[] workers = new Worker[workerList.size()];
@@ -79,5 +83,26 @@ public class WorkerDao implements BaseColumns {
             workers[i] = workerList.get(i);
         }
         return workers;
+    }
+
+    public static void updateValues(SQLiteDatabase db, Worker worker) {
+        String selection = COLUMN_NAME_WORKER_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(worker.getWorkerId())};
+        ContentValues values = new ContentValues();
+        values = getValues(worker);
+        db.update(TABLE_NAME,values,selection,selectionArgs);
+        WorkerContactDao.updateValues(db,worker);
+    }
+
+    private static ContentValues getValues(Worker worker) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_WORKER_ID,worker.getWorkerId());
+        values.put(COLUMN_NAME_WORKER_NAME,worker.getWorkerName());
+        values.put(COLUMN_NAME_ADMIN_ID,worker.getAdminId());
+        values.put(COLUMN_NAME_STREET,worker.getStreet());
+        values.put(COLUMN_NAME_CITY,worker.getCity());
+        values.put(COLUMN_NAME_HOUSE_NO,worker.getHouseNumber());
+        values.put(COLUMN_NAME_WORKER_SALARY,worker.getWorkerSalary());
+        return values;
     }
 }

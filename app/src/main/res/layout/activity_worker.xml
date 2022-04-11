@@ -200,6 +200,28 @@
                 android:layout_height="15dp">
             </View>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="ADDED BY"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_admin_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:inputType="number">
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/bt_home"
                 android:layout_width="75dp"

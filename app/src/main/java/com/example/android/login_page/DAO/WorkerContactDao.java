@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
+import com.example.android.login_page.Entity.Worker;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class WorkerContactDao implements BaseColumns {
     public  static final String COLUMN_NAME_CONTACT_NUM="PHONE_NUMBER";
     public static final String SQL_CREATE_TABLE="CREATE TABLE "+TABLE_NAME
             +"("+COLUMN_NAME_WORKER_ID+" INTEGER,"+COLUMN_NAME_CONTACT_NUM
-            +" TEXT, FOREIGN KEY ("+COLUMN_NAME_WORKER_ID+") REFERENCES "
+            +" TEXT, PRIMARY KEY("+COLUMN_NAME_WORKER_ID + "," + COLUMN_NAME_CONTACT_NUM +"), FOREIGN KEY ("+COLUMN_NAME_WORKER_ID+") REFERENCES "
             +WorkerDao.TABLE_NAME+"("+WorkerDao.COLUMN_NAME_WORKER_ID+")"+
             ")";
     public  static final String SQL_DELETE_TABLE="DROP TABLE IF EXISTS " + TABLE_NAME;
@@ -43,5 +45,27 @@ public class WorkerContactDao implements BaseColumns {
         }
         return phoneNos;
 
+    }
+
+    public static void updateValues(SQLiteDatabase db, Worker worker) {
+        List<String> phones = getPhoneNumbers(db,worker.getWorkerId());
+        int i=0;
+        for(String phone: phones){
+            String selection = COLUMN_NAME_WORKER_ID + " = ? AND " + COLUMN_NAME_CONTACT_NUM + " = ?";
+            String[] selectionArgs = {String.valueOf(worker.getWorkerId()),phone};
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_NAME_WORKER_ID,worker.getWorkerId());
+            values.put(COLUMN_NAME_CONTACT_NUM,i);
+            db.update(TABLE_NAME,values,selection,selectionArgs);
+            i++;
+        }
+        for(int j=0;j<2;j++){
+            String selection = COLUMN_NAME_WORKER_ID + " = ? AND " + COLUMN_NAME_CONTACT_NUM + " = ?";
+            String[] selectionArgs = {String.valueOf(worker.getWorkerId()),String.valueOf(j)};
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_NAME_WORKER_ID,worker.getWorkerId());
+            values.put(COLUMN_NAME_CONTACT_NUM,worker.getPhoneNumbers().get(j));
+            db.update(TABLE_NAME,values,selection,selectionArgs);
+        }
     }
 }

@@ -8,9 +8,19 @@ public class Worker implements Serializable {
   private String workerName;
   private int workerSalary;
   private String street;
-  private String city;
+
+    public int getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
+    }
+
+    private String city;
   private String houseNumber;
   private ArrayList<String> phoneNumbers;
+  private int adminId;
 
     public int getWorkerId() {
         return workerId;
@@ -68,7 +78,7 @@ public class Worker implements Serializable {
         this.houseNumber = houseNumber;
     }
 
-    public Worker(int workerId, String workerName, int workerSalary, String street, String city, String houseNumber, ArrayList<String> phoneNumbers) {
+    public Worker(int workerId, String workerName, int workerSalary, String street, String city, String houseNumber, ArrayList<String> phoneNumbers, int adminId) {
         this.workerId = workerId;
         this.workerName = workerName;
         this.workerSalary = workerSalary;
@@ -76,6 +86,7 @@ public class Worker implements Serializable {
         this.city = city;
         this.houseNumber = houseNumber;
         this.phoneNumbers = phoneNumbers;
+        this.adminId = adminId;
     }
 
     public Worker() {
