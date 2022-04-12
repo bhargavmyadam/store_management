@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.android.login_page.Entity.Admin;
@@ -13,6 +14,7 @@ public class DashBoardActivity extends AppCompatActivity {
     Admin admin;
     LinearLayout mAdminDetails;
     LinearLayout mWorkers;
+    Button mLogoutButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +23,14 @@ public class DashBoardActivity extends AppCompatActivity {
         admin = (Admin)intent.getSerializableExtra("admin");
         mAdminDetails = findViewById(R.id.ll_admin_details);
         mWorkers = findViewById(R.id.ll_workers);
+        mLogoutButton = findViewById(R.id.bt_logout);
+        mLogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(DashBoardActivity.this,MainActivity.class);
+                startActivity(intent1);
+            }
+        });
         mAdminDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

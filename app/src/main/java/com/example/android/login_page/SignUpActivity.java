@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.example.android.login_page.DAO.AdminDao;
 import com.example.android.login_page.DataBaseHelper.DBHelper;
 
@@ -25,6 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText mConfirmPassword;
     Button mSignUp;
     TextView mErrorMsg;
+    AwesomeValidation mAwesomeValidation;
     DBHelper dbHelper;
 
     @Override
@@ -39,6 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
         mSignUp = findViewById(R.id.signUpBtn);
         mErrorMsg = findViewById(R.id.tv_error_message);
         dbHelper = new DBHelper(this);
+        mAwesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,28 +69,16 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public boolean validateFields(){
-        if(mFullName.getText() != null && mEmail.getText() != null && mPassword.getText()!=null && mConfirmPassword.getText() != null) {
-            if(Pattern.matches("^(.+)@(.+)$",mEmail.getText().toString())){
-                System.out.println("EMAIL CORRECT!");
-               if(mPassword.getText().toString().length() < 8){
-                   if(mPassword.getText().toString().equals(mConfirmPassword.getText().toString())){
-                       mErrorMsg.setVisibility(View.INVISIBLE);
-                       return true;
-                   }
-                   mErrorMsg.setText(R.string.password_match);
-                   mErrorMsg.setVisibility(View.VISIBLE);
-                   return false;
-               }
-               mErrorMsg.setText(R.string.invalid_password);
-               mErrorMsg.setVisibility(View.VISIBLE);
-               return false;
+        mAwesomeValidation.addValidation(this,R.id.et_fullname, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.userEmailId, "^(.+)@(.+)$",R.string.invalid_email);
+        mAwesomeValidation.addValidation(this,R.id.password,"^(.{8,32})$",R.string.invalid_password);
+        if(mAwesomeValidation.validate()){
+            if(mPassword.getText().toString().equals(mConfirmPassword.getText().toString())){
+                return true;
             }
-            mErrorMsg.setText(R.string.invalid_email);
-            mErrorMsg.setVisibility(View.VISIBLE);
+            mErrorMsg.setText(R.string.password_match);
             return false;
         }
-        mErrorMsg.setText(R.string.empty_fields);
-        mErrorMsg.setVisibility(View.VISIBLE);
         return false;
     }
 }

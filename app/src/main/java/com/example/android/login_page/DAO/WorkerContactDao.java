@@ -68,4 +68,10 @@ public class WorkerContactDao implements BaseColumns {
             db.update(TABLE_NAME,values,selection,selectionArgs);
         }
     }
+
+    public static void deleteContact(SQLiteDatabase db, Worker worker) {
+        String selection = COLUMN_NAME_WORKER_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(worker.getWorkerId())};
+        db.delete(TABLE_NAME, selection, selectionArgs);
+    }
 }

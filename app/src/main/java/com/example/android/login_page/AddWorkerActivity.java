@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.example.android.login_page.DAO.WorkerContactDao;
 import com.example.android.login_page.DAO.WorkerDao;
 import com.example.android.login_page.DataBaseHelper.DBHelper;
@@ -32,6 +35,7 @@ public class AddWorkerActivity extends AppCompatActivity {
     EditText mHouseNumber;
     Button mAddButton;
     TextView mErrorMsg;
+    AwesomeValidation mAwesomeValidation;
     DBHelper dbHelper;
 
     @Override
@@ -50,6 +54,7 @@ public class AddWorkerActivity extends AppCompatActivity {
         mHouseNumber = findViewById(R.id.et_house_number);
         mAddButton = findViewById(R.id.bt_add);
         mErrorMsg = findViewById(R.id.tv_error_message);
+        mAwesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         mAddButton.setOnClickListener(new View.OnClickListener() {
@@ -85,22 +90,13 @@ public class AddWorkerActivity extends AppCompatActivity {
     }
 
     public boolean validateFields(){
-        if(mWorkerName.getText() != null && !mWorkerName.getText().toString().isEmpty()){
-            if(mSalary.getText()!=null && !mSalary.getText().toString().isEmpty()){
-                if(mPhone1.getText() != null && !mPhone1.getText().toString().isEmpty()){
-                    if(mPhone1.getText().toString().length() == 10){
-                        return true;
-                    }
-                    mErrorMsg.setText(mPhone1.getText().toString());
-                    return false;
-                }
-                mErrorMsg.setText(R.string.empty_fields);
-                return false;
-            }
-            mErrorMsg.setText(R.string.empty_fields);
-            return false;
-        }
-        mErrorMsg.setText(R.string.empty_fields);
-        return false;
+        mAwesomeValidation.addValidation(this,R.id.et_worker_name, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.et_salary,RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.et_phone1,RegexTemplate.TELEPHONE,R.string.invalid_mobile);
+        mAwesomeValidation.addValidation(this,R.id.et_phone2,RegexTemplate.TELEPHONE,R.string.invalid_mobile);
+        mAwesomeValidation.addValidation(this,R.id.et_street,RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.et_city,RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.et_house_number,RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        return mAwesomeValidation.validate();
     }
 }

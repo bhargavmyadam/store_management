@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 public class DBHelper extends SQLiteOpenHelper{
 
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = "StoreManagement.db";
 
     public DBHelper(Context context) {
@@ -24,6 +24,7 @@ public class DBHelper extends SQLiteOpenHelper{
         sqLiteDatabase.execSQL(AdminDao.SQL_CREATE_TABLE);
         sqLiteDatabase.execSQL(WorkerDao.SQL_CREATE_TABLE);
         sqLiteDatabase.execSQL(WorkerContactDao.SQL_CREATE_TABLE);
+        sqLiteDatabase.execSQL("PRAGMA foreign_keys = ON");
     }
 
     @Override

@@ -105,4 +105,11 @@ public class WorkerDao implements BaseColumns {
         values.put(COLUMN_NAME_WORKER_SALARY,worker.getWorkerSalary());
         return values;
     }
+
+    public static void deleteWorker(SQLiteDatabase db,Worker worker) {
+        WorkerContactDao.deleteContact(db,worker);
+        String selection = COLUMN_NAME_WORKER_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(worker.getWorkerId())};
+        db.delete(TABLE_NAME, selection, selectionArgs);
+    }
 }

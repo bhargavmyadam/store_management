@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.example.android.login_page.DAO.AdminDao;
 import com.example.android.login_page.DAO.WorkerDao;
 import com.example.android.login_page.DataBaseHelper.DBHelper;
@@ -27,12 +30,14 @@ public class WorkerActivity extends AppCompatActivity {
     FloatingActionButton mHomeButton;
     Button mRemove;
     Button mEdit;
+    AwesomeValidation mAwesomeValidation;
     DBHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worker);
         initFields();
+        mAwesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         populateFields();
         mHomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +66,22 @@ public class WorkerActivity extends AppCompatActivity {
                 }
             }
         });
+        mRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mRemove.getText().toString().equals(getString(R.string.remove))){
+                    WorkerDao.deleteWorker(dbHelper.getWritableDatabase(),worker);
+                    Intent intent = new Intent(WorkerActivity.this,WorkersActivity.class);
+                    intent.putExtra("admin",admin);
+                    startActivity(intent);
+                }
+                else{
+                    mEdit.setText(R.string.edit);
+                    mRemove.setText(R.string.remove);
+                    populateFields();
+                }
+            }
+        });
     }
 
     private void updateDatabase() {
@@ -78,7 +99,14 @@ public class WorkerActivity extends AppCompatActivity {
     }
 
     private boolean validateFields() {
-        return true;
+        mAwesomeValidation.addValidation(this,R.id.et_fullname, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.et_salary,RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.et_phone1,RegexTemplate.TELEPHONE,R.string.invalid_mobile);
+        mAwesomeValidation.addValidation(this,R.id.et_phone2,RegexTemplate.TELEPHONE,R.string.invalid_mobile);
+        mAwesomeValidation.addValidation(this,R.id.et_street,RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.et_city,RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.et_house_number,RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        return mAwesomeValidation.validate();
     }
 
     private void enableFields() {
