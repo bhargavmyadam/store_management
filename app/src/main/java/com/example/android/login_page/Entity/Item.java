@@ -9,6 +9,16 @@ public class Item implements Serializable {
     private int price;
     private String category;
     private int Quantity;
+    private int size;
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public int getItemId() {
         return itemId;
     }
