@@ -1,6 +1,14 @@
 package com.example.android.login_page.DAO;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+
+import com.example.android.login_page.Entity.Customer;
+import com.example.android.login_page.Entity.Worker;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerDao implements BaseColumns {
     public static final String TABLE_NAME="CUSTOMER";
@@ -15,4 +23,48 @@ public class CustomerDao implements BaseColumns {
             +" INTEGER,"+COLUMN_NAME_STREET+" TEXT,"+COLUMN_NAME_CITY+" TEXT,"+COLUMN_NAME_HOUSE_NO
             +" TEXT)";
     public static final String SQL_DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+
+    public static Customer[] getAllCustomers(SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_NAME,null,null,null,null,null,null);
+        List<Customer> customersList = new ArrayList<>();
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CUSTOMER_ID));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_CUSTOMER_NAME));
+            String street = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_STREET));
+            String city = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_CITY));
+            String houseNo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_HOUSE_NO));
+            int numberOfVisits = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_NUMBER_OF_VISITS));
+            List<String> phoneNumbers = CustomerContactDao.getPhoneNumbers(db,id);
+            Customer customer = new Customer(id,numberOfVisits,name,(ArrayList<String>) phoneNumbers,street,city,houseNo);
+            customersList.add(customer);
+        }
+        Customer[] customers = new Customer[customersList.size()];
+        for (int i = 0; i < customersList.size(); i++) {
+            customers[i] = customersList.get(i);
+        }
+        return customers;
+    }
+
+    public static Customer[] getAllCustomersByName(SQLiteDatabase db, String customerName) {
+        String selection = COLUMN_NAME_CUSTOMER_NAME + " = ?";
+        String[] selectionArgs = {customerName};
+        Cursor cursor = db.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        List<Customer> customersList = new ArrayList<>();
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CUSTOMER_ID));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_CUSTOMER_NAME));
+            String street = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_STREET));
+            String city = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_CITY));
+            String houseNo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_HOUSE_NO));
+            int numberOfVisits = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_NUMBER_OF_VISITS));
+            List<String> phoneNumbers = CustomerContactDao.getPhoneNumbers(db,id);
+            Customer customer = new Customer(id,numberOfVisits,name,(ArrayList<String>) phoneNumbers,street,city,houseNo);
+            customersList.add(customer);
+        }
+        Customer[] customers = new Customer[customersList.size()];
+        for (int i = 0; i < customersList.size(); i++) {
+            customers[i] = customersList.get(i);
+        }
+        return customers;
+    }
 }

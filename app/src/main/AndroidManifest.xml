@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
+            android:name=".CustomersActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".WorkerActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />

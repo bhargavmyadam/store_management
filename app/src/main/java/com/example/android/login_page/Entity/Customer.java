@@ -12,6 +12,15 @@ public class Customer implements Serializable {
     private String city;
     private String houseNumber;
 
+    public Customer(int customerId, int numberOfVisits, String customerName, ArrayList<String> phoneNumbers, String street, String city, String houseNumber) {
+        this.customerId = customerId;
+        this.numberOfVisits = numberOfVisits;
+        this.customerName = customerName;
+        this.phoneNumbers = phoneNumbers;
+        this.street = street;
+        this.city = city;
+        this.houseNumber = houseNumber;
+    }
 
     public int getCustomerId() {
         return customerId;

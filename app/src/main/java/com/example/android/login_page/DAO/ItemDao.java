@@ -11,6 +11,6 @@ public class ItemDao implements BaseColumns {
     public static final String COLUMN_NAME_QUANTITY="QUANTITY";
     public static final String SQL_CREATE_TABLE="CREATE TABLE "+TABLE_NAME+"( "+COLUMN_NAME_ITEM_ID+" INTEGER PRIMARY KEY,"
             +COLUMN_NAME_ITEM_NAME+" TEXT,"+COLUMN_NAME_PRICE+" INTEGER,"+COLUMN_NAME_SIZE+" INTEGER,"+COLUMN_NAME_QUANTITY
-            +" INTEGER,FOREIGN KEY( "+COLUMN_NAME_ITEM_NAME+" REFERENCES "+ ItemDescDao.COLUMN_NAME_ITEM_NAME+")" +" )";
+            +" INTEGER,FOREIGN KEY( "+COLUMN_NAME_ITEM_NAME+") REFERENCES "+ ItemDescDao.TABLE_NAME + "(" +ItemDescDao.COLUMN_NAME_ITEM_NAME+")" +" )";
     public static final String SQL_DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 }
