@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CustomerActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/md_purple_100">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/md_purple_100"
+            android:text="CUSTOMER"
+            android:textAlignment="center"
+            android:textColor="@color/md_teal_300"
+            android:fontFamily="@font/baloo_bhaina"
+            android:textSize="22sp"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/md_yellow_50">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="NAME"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                >
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="NUMBER OF VISITS"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_visits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:inputType="numberSigned">
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="PHONE1"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_phone1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:inputType="phone">
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="PHONE2"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_phone2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:inputType="phone">
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="STREET"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_street"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="CITY"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="HOUSE NUMBER"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_house_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:inputType="number">
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/bt_home"
+                android:layout_width="75dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/ic_home_black_24dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+</LinearLayout>
+

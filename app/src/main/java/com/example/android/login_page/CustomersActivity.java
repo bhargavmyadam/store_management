@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -87,7 +88,7 @@ public class CustomersActivity extends AppCompatActivity {
     public class ClickHandler implements CustomerAdapter.OnClickViewHolder{
         @Override
         public void onClick(Customer customer) {
-            Intent intent = new Intent(CustomersActivity.this,WorkerActivity.class);
+            Intent intent = new Intent(CustomersActivity.this,CustomerActivity.class);
             intent.putExtra("customer",customer);
             intent.putExtra("admin",admin);
             startActivity(intent);
