@@ -170,26 +170,26 @@
                 android:layout_margin="10dp">
 
                 <LinearLayout
+                    android:id="@+id/ll_items"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:gravity="center"
-                    >
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="110dp"
                         android:layout_height="93dp"
-                        android:src="@drawable/item"
-                        android:layout_marginTop="18dp"/>
+                        android:layout_marginTop="18dp"
+                        android:src="@drawable/item" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ITEMS"
+                        android:layout_marginTop="20dp"
                         android:fontFamily="@font/googlesans_bold"
-                        android:textSize="18sp"
+                        android:text="ITEMS"
                         android:textColor="@color/white"
-                        android:layout_marginTop="20dp"/>
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 

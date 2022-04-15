@@ -15,6 +15,7 @@ public class DashBoardActivity extends AppCompatActivity {
     LinearLayout mAdminDetails;
     LinearLayout mWorkers;
     LinearLayout mCustomers;
+    LinearLayout mItems;
     Button mLogoutButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class DashBoardActivity extends AppCompatActivity {
         mAdminDetails = findViewById(R.id.ll_admin_details);
         mWorkers = findViewById(R.id.ll_workers);
         mCustomers = findViewById(R.id.ll_customers);
+        mItems = findViewById(R.id.ll_items);
         mLogoutButton = findViewById(R.id.bt_logout);
         mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,5 +59,14 @@ public class DashBoardActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
+        mItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(DashBoardActivity.this,ItemsActivity.class);
+                intent1.putExtra("admin",admin);
+                startActivity(intent1);
+            }
+        });
+
     }
 }

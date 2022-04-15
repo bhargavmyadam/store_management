@@ -11,6 +11,15 @@ public class Item implements Serializable {
     private int Quantity;
     private int size;
 
+    public Item(int itemId, String itemName, String brand, int price, String category, int quantity, int size) {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.brand = brand;
+        this.price = price;
+        this.category = category;
+        Quantity = quantity;
+        this.size = size;
+    }
     public int getSize() {
         return size;
     }

@@ -13,24 +13,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/ll_customer"
+            android:id="@+id/ll_item"
             >
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/md_purple_50">
+
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/customer"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:contentDescription="Not Loaded">
+                    android:contentDescription="Not Loaded"
+                    android:src="@drawable/worker">
+
                 </ImageView>
             </FrameLayout>
 
             <TextView
-                android:id="@+id/tv_customer_name"
+                android:id="@+id/tv_item_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/cardview_compat_inset_shadow"
@@ -38,7 +40,7 @@
                 android:layout_marginRight="@dimen/cardview_compat_inset_shadow"
                 android:gravity="center_horizontal"
                 android:padding="@dimen/cardview_default_elevation"
-                android:text="CUSTOMER NAME"
+                android:text="ITEM NAME"
                 android:textAllCaps="true"
                 android:textAlignment="center"
                 android:textSize="22sp"
@@ -47,7 +49,43 @@
 
                 android:textColor="@color/md_teal_300"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/md_purple_100">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/cardview_compat_inset_shadow"
+                    android:layout_marginLeft="@dimen/cardview_compat_inset_shadow"
+                    android:layout_marginRight="@dimen/cardview_compat_inset_shadow"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/cardview_default_elevation"
+                    android:text="PRICE"
+                    android:textAllCaps="true"
+                    android:textAlignment="center"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/baloo_bhaina"
+                    android:background="@color/md_purple_100"
+                    android:textColor="@color/md_teal_300"/>
 
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/cardview_compat_inset_shadow"
+                    android:layout_marginLeft="@dimen/cardview_compat_inset_shadow"
+                    android:layout_marginRight="@dimen/cardview_compat_inset_shadow"
+
+                    android:fontFamily="@font/baloo_bhaina"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/cardview_default_elevation"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/md_teal_300"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,7 +100,7 @@
                     android:layout_marginRight="@dimen/cardview_compat_inset_shadow"
                     android:gravity="center_horizontal"
                     android:padding="@dimen/cardview_default_elevation"
-                    android:text="PHONE"
+                    android:text="QUANTITY"
                     android:textAllCaps="true"
                     android:textAlignment="center"
                     android:textSize="22sp"
@@ -71,7 +109,7 @@
                     android:textColor="@color/md_teal_300"/>
 
                 <TextView
-                    android:id="@+id/tv_phone"
+                    android:id="@+id/tv_quantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/cardview_compat_inset_shadow"

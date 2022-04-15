@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddItemActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/md_purple_100">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bt_home"
+            android:layout_width="75dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:clickable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:srcCompat="@drawable/ic_home_black_24dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/md_purple_100"
+            android:text="ADD NEW ITEM"
+            android:textAlignment="center"
+            android:textColor="@color/md_teal_300"
+            android:fontFamily="@font/baloo_bhaina"
+            android:textSize="22sp"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/md_yellow_50">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="NAME"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                >
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="PRICE"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:inputType="numberSigned">
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="SIZE"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:inputType="phone">
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="QUANTITY"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:inputType="phone">
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="BRAND"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_brand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="CATEGORY"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+            <Button
+                android:id="@+id/bt_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo_bhaina"
+                android:background="@color/md_purple_100"
+                android:textColor="@color/md_teal_300"
+                android:padding="5dp"
+                android:layout_margin="10dp"
+                android:text="ADD"
+                android:shadowRadius="@integer/material_motion_duration_long_2">
+            </Button>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+</LinearLayout>
+

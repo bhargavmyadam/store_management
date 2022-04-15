@@ -55,7 +55,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             super(v);
             mName = v.findViewById(R.id.tv_customer_name);
             mPhone = v.findViewById(R.id.tv_phone);
-            v.findViewById(R.id.ll_worker).setOnClickListener(this);
+            v.findViewById(R.id.ll_customer).setOnClickListener(this);
         }
         public void bindData(Customer customer){
             mName.setText(customer.getCustomerName());
