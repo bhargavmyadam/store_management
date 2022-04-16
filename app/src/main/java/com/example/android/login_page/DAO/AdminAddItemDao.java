@@ -32,4 +32,25 @@ public class AdminAddItemDao {
         values.put(COLUMN_NAME_DATE,date);
         db.insert(TABLE_NAME,null,values);
     }
+
+    public static void updateDatabase(SQLiteDatabase writableDatabase, int itemId, int adminID, int qty) {
+        String date = LocalDateTime.now().toLocalDate().toString();
+        String selection = COLUMN_NAME_ITEM_ID + " = ? AND " + COLUMN_NAME_ADMIN_ID + " = ? AND " + COLUMN_NAME_DATE + " = ?";
+        String[] selectionArgs = {String.valueOf(itemId),String.valueOf(adminID),date};
+        Cursor cursor = writableDatabase.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        if (cursor.getCount() == 0){
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_NAME_ITEM_ID,itemId);
+            values.put(COLUMN_NAME_ADMIN_ID,adminID);
+            values.put(COLUMN_NAME_DATE,date);
+            values.put(COLUMN_NAME_QUANTITY,qty);
+            writableDatabase.insert(TABLE_NAME,null,values);
+        }
+        else{
+            cursor.moveToNext();
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_NAME_QUANTITY,cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUANTITY))+qty);
+            writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
+        }
+    }
 }

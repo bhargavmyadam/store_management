@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
+import androidx.core.app.NavUtils;
+
 import com.example.android.login_page.Entity.Item;
 import com.example.android.login_page.Entity.Worker;
 
@@ -88,5 +90,17 @@ public class ItemDao implements BaseColumns {
         values.put(COLUMN_NAME_QUANTITY,item.getQuantity());
         values.put(COLUMN_NAME_SIZE,item.getSize());
         return values;
+    }
+
+    public static void updateDatabase(SQLiteDatabase writableDatabase, int itemId, int adminID, int qty) {
+        String selection = COLUMN_NAME_ITEM_ID + " = ? ";
+        String[] selectionArgs = {String.valueOf(itemId)};
+        Cursor cursor = writableDatabase.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        cursor.moveToNext();
+        int newQty = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUANTITY)) + qty;
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_QUANTITY,newQty);
+        writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
+        AdminAddItemDao.updateDatabase(writableDatabase,itemId,adminID,qty);
     }
 }

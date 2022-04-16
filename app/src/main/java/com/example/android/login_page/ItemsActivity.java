@@ -95,7 +95,7 @@ public class ItemsActivity extends AppCompatActivity {
     public class ClickHandler implements ItemAdapter.OnClickViewHolder{
         @Override
         public void onClick(Item item) {
-            Intent intent = new Intent(ItemsActivity.this,WorkerActivity.class);
+            Intent intent = new Intent(ItemsActivity.this,ItemActivity.class);
             intent.putExtra("item",item);
             intent.putExtra("admin",admin);
             startActivity(intent);
