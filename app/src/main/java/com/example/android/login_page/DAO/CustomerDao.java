@@ -67,4 +67,19 @@ public class CustomerDao implements BaseColumns {
         }
         return customers;
     }
+
+    public static Customer getCustomerById(SQLiteDatabase readableDatabase, int customerId) {
+        String selection = COLUMN_NAME_CUSTOMER_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(customerId)};
+        Cursor cursor = readableDatabase.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        cursor.moveToNext();
+        int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CUSTOMER_ID));
+        String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_CUSTOMER_NAME));
+        String street = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_STREET));
+        String city = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_CITY));
+        String houseNo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_HOUSE_NO));
+        int numberOfVisits = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_NUMBER_OF_VISITS));
+        List<String> phoneNumbers = CustomerContactDao.getPhoneNumbers(readableDatabase,id);
+        return new Customer(id,numberOfVisits,name,(ArrayList<String>) phoneNumbers,street,city,houseNo);
+    }
 }

@@ -6,10 +6,18 @@ import java.util.HashMap;
 
 public class Transaction implements Serializable {
     private int transactionId;
-    private Date date;
+    private String date;
     private int adminId;
     private int customerId;
     private HashMap<Integer,Integer> items;
+
+    public Transaction(int transactionId, String date, int adminId, int customerId, HashMap<Integer, Integer> items) {
+        this.transactionId = transactionId;
+        this.date = date;
+        this.adminId = adminId;
+        this.customerId = customerId;
+        this.items = items;
+    }
 
     public HashMap<Integer, Integer> getItems() {
         return items;
@@ -19,8 +27,6 @@ public class Transaction implements Serializable {
         this.items = items;
     }
 
-    private int quantity;
-
     public int getTransactionId() {
         return transactionId;
     }
@@ -29,11 +35,11 @@ public class Transaction implements Serializable {
         this.transactionId = transactionId;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -51,15 +57,5 @@ public class Transaction implements Serializable {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
-    }
-
-
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 }

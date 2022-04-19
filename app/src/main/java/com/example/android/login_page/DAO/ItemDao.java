@@ -103,4 +103,31 @@ public class ItemDao implements BaseColumns {
         writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
         AdminAddItemDao.updateDatabase(writableDatabase,itemId,adminID,qty);
     }
+
+    public static int getTotalAmount(SQLiteDatabase db, HashMap<Integer, Integer> items) {
+        int totAmount = 0;
+        for(int itemId : items.keySet()){
+            String selection = COLUMN_NAME_ITEM_ID + " = ?";
+            String[] selectionArgs = {String.valueOf(itemId)};
+            Cursor cursor = db.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+            cursor.moveToNext();
+            totAmount += (cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_PRICE)) * items.get(itemId));
+        }
+        return totAmount;
+    }
+
+    public static Item getItemById(SQLiteDatabase readableDatabase, int itemId) {
+        String selection = COLUMN_NAME_ITEM_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(itemId)};
+        Cursor cursor = readableDatabase.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        cursor.moveToNext();
+        int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_ITEM_ID));
+        String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_ITEM_NAME));
+        int price = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_PRICE));
+        int size = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_SIZE));
+        int quantity = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUANTITY));
+        HashMap<String,String> brandAndCategory = ItemDescDao.getBrandAndCategory(readableDatabase,name);
+        Item item = new Item(id,name,brandAndCategory.get("brand"),price,brandAndCategory.get("category"),quantity,size);
+        return item;
+    }
 }

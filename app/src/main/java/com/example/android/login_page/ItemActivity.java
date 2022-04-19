@@ -64,6 +64,7 @@ public class ItemActivity extends AppCompatActivity {
 
     private void updateDatabase() {
         ItemDao.updateDatabase(dbHelper.getWritableDatabase(),item.getItemId(),admin.getAdminID(),Integer.parseInt(mAddQuantity.getText().toString()));
+        item.setQuantity(item.getQuantity() + Integer.parseInt(mAddQuantity.getText().toString()));
     }
 
     private boolean validateFields() {
