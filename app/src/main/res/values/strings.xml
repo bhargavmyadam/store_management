@@ -46,4 +46,5 @@
     <string name="edit">EDIT</string>
     <string name="cancel">CANCEL</string>
     <string name="remove">REMOVE</string>
+    <string name="no_items_selected">No items are selected.</string>
 </resources>

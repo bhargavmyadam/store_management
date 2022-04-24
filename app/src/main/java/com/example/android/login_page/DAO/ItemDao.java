@@ -10,6 +10,7 @@ import androidx.core.app.NavUtils;
 import com.example.android.login_page.Entity.Item;
 import com.example.android.login_page.Entity.Worker;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -129,5 +130,18 @@ public class ItemDao implements BaseColumns {
         HashMap<String,String> brandAndCategory = ItemDescDao.getBrandAndCategory(readableDatabase,name);
         Item item = new Item(id,name,brandAndCategory.get("brand"),price,brandAndCategory.get("category"),quantity,size);
         return item;
+    }
+
+    public static void updateQuantity(SQLiteDatabase writableDatabase, int transactionId) {
+        HashMap<Integer,Integer> items = TransactionUpdateItemDao.getItems(writableDatabase,transactionId);
+        for(int itemId : items.keySet()){
+            String selection = COLUMN_NAME_ITEM_ID + " = ?";
+            String[] selectionArgs = {String.valueOf(itemId)};
+            Cursor cursor = writableDatabase.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+            ContentValues values = new ContentValues();
+            cursor.moveToNext();
+            values.put(COLUMN_NAME_QUANTITY,cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUANTITY)) - items.get(itemId));
+            writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
+        }
     }
 }

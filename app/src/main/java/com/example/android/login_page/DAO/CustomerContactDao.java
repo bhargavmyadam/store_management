@@ -26,4 +26,12 @@ public class CustomerContactDao implements BaseColumns {
         }
         return phoneNos;
     }
+
+    public static int getCustomerId(SQLiteDatabase readableDatabase,String mobile) {
+        String selection = COLUMN_NAME_CONTACT_NUM + " = ?";
+        String[] selectionArgs = {mobile};
+        Cursor cursor = readableDatabase.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        cursor.moveToNext();
+        return cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CUSTOMER_ID));
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.android.login_page.DAO;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -7,6 +8,7 @@ import android.provider.BaseColumns;
 import com.example.android.login_page.Entity.Transaction;
 import com.example.android.login_page.Entity.Worker;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,5 +64,37 @@ public class TransactionDao implements BaseColumns {
             transactions[i] = transactionList.get(i);
         }
         return transactions;
+    }
+
+    public static int generateNewTid(SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_NAME,null,null,null,null,null,null);
+        if(cursor.getCount() == 0){
+            return 1;
+        }
+        else{
+            cursor.moveToLast();
+            return cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_TID)) + 1;
+        }
+    }
+
+    public static void addDummyTransaction(int adminId, int transactionId) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_TID,transactionId);
+        values.put(COLUMN_NAME_T_DATE, LocalDateTime.now().toLocalDate().toString());
+        values.put(COLUMN_NAME_ADMIN_ID,adminId);
+    }
+
+    public static void updateDummyTransaction(SQLiteDatabase writableDatabase, int transactionId, int customerId) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_CUSTOMER_ID,customerId);
+        String selection = COLUMN_NAME_TID + " = ?";
+        String[] selectionArgs = {String.valueOf(transactionId)};
+        writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
+    }
+
+    public static void deleteDummyTransaction(SQLiteDatabase writableDatabase, int transactionId) {
+        String selection = COLUMN_NAME_TID + " = ?";
+        String[] selectionArgs = {String.valueOf(transactionId)};
+        writableDatabase.delete(TABLE_NAME,selection,selectionArgs);
     }
 }

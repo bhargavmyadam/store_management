@@ -33,4 +33,10 @@ public class TransactionUpdateItemDao implements BaseColumns {
         HashMap<Integer,Integer> items = getItems(db,transactionId);
         return ItemDao.getTotalAmount(db,items);
     }
+
+    public static void deleteTransaction(SQLiteDatabase writableDatabase, int transactionId) {
+        String selection = COLUMN_NAME_TID + " = ? ";
+        String[] selectionArgs = {String.valueOf(transactionId)};
+        writableDatabase.delete(TABLE_NAME,selection,selectionArgs);
+    }
 }

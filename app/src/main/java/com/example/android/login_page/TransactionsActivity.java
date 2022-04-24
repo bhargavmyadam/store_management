@@ -85,7 +85,7 @@ public class TransactionsActivity extends AppCompatActivity {
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TransactionsActivity.this,AddWorkerActivity.class);
+                Intent intent = new Intent(TransactionsActivity.this,AddTransactionActivity.class);
                 intent.putExtra("admin",admin);
                 startActivity(intent);
             }

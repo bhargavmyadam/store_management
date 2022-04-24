@@ -4,20 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TransactionActivity">
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/bt_add"
-        android:layout_width="89dp"
-        android:layout_height="53dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.979"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_plus" />
+    tools:context=".AddOrRemoveItemsActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -36,22 +23,23 @@
 
     </com.google.android.material.navigation.NavigationView>
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/bt_home"
+        android:id="@+id/bt_back"
         android:layout_width="136dp"
         android:layout_height="57dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_home_black_24dp" />
+        app:srcCompat="@drawable/ic_back" />
 
     <SearchView
-        android:id="@+id/sv_transaction_date"
-        android:queryHint="YYYY-MM-DD"
-        android:layout_width="283dp"
-        android:layout_height="45dp"
+        android:id="@+id/sv_item_name"
+        android:layout_width="383dp"
+        android:layout_height="48dp"
         android:layout_marginTop="4dp"
+        android:queryHint="Item Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"
