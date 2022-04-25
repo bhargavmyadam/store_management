@@ -1,5 +1,6 @@
 package com.example.android.login_page.DAO;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -37,6 +38,28 @@ public class TransactionUpdateItemDao implements BaseColumns {
     public static void deleteTransaction(SQLiteDatabase writableDatabase, int transactionId) {
         String selection = COLUMN_NAME_TID + " = ? ";
         String[] selectionArgs = {String.valueOf(transactionId)};
+        writableDatabase.delete(TABLE_NAME,selection,selectionArgs);
+    }
+
+    public static void updateQty(SQLiteDatabase writableDatabase, int tid, int itemId, int value) {
+        String selection = COLUMN_NAME_TID + " = ? AND " + COLUMN_NAME_ITEM_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(tid),String.valueOf(itemId)};
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_QUANTITY,value);
+        writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
+    }
+
+    public static void addNewItem(SQLiteDatabase writableDatabase, int tid, int itemId, int value) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_TID,tid);
+        values.put(COLUMN_NAME_ITEM_ID,itemId);
+        values.put(COLUMN_NAME_QUANTITY,value);
+        writableDatabase.insert(TABLE_NAME,null,values);
+    }
+
+    public static void deleteTransactionItem(SQLiteDatabase writableDatabase, int tid, int itemId) {
+        String selection = COLUMN_NAME_TID + " = ? AND " + COLUMN_NAME_ITEM_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(tid),String.valueOf(itemId)};
         writableDatabase.delete(TABLE_NAME,selection,selectionArgs);
     }
 }

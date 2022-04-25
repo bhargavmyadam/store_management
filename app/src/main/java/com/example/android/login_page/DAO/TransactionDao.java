@@ -77,11 +77,12 @@ public class TransactionDao implements BaseColumns {
         }
     }
 
-    public static void addDummyTransaction(int adminId, int transactionId) {
+    public static void addDummyTransaction(SQLiteDatabase db,int transactionId, int adminId) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_TID,transactionId);
         values.put(COLUMN_NAME_T_DATE, LocalDateTime.now().toLocalDate().toString());
         values.put(COLUMN_NAME_ADMIN_ID,adminId);
+        db.insert(TABLE_NAME,null,values);
     }
 
     public static void updateDummyTransaction(SQLiteDatabase writableDatabase, int transactionId, int customerId) {

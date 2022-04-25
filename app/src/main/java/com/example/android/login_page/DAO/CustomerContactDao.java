@@ -1,5 +1,6 @@
 package com.example.android.login_page.DAO;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -27,11 +28,28 @@ public class CustomerContactDao implements BaseColumns {
         return phoneNos;
     }
 
+
     public static int getCustomerId(SQLiteDatabase readableDatabase,String mobile) {
         String selection = COLUMN_NAME_CONTACT_NUM + " = ?";
         String[] selectionArgs = {mobile};
         Cursor cursor = readableDatabase.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
         cursor.moveToNext();
         return cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CUSTOMER_ID));
+    }
+
+    public static void addNewContact(SQLiteDatabase writableDatabase, int customerId, ArrayList<String> phoneNumbers) {
+        for(String phone : phoneNumbers){
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_NAME_CUSTOMER_ID,customerId);
+            values.put(COLUMN_NAME_CONTACT_NUM,phone);
+            writableDatabase.insert(TABLE_NAME,null,values);
+        }
+    }
+
+    public static boolean customerMobileExists(SQLiteDatabase readableDatabase, String mobile) {
+        String selection = COLUMN_NAME_CONTACT_NUM + " = ?";
+        String[] selectionArgs = {mobile};
+        Cursor cursor = readableDatabase.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        return cursor.getCount() != 0;
     }
 }

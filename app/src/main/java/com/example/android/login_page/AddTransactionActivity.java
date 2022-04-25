@@ -2,9 +2,11 @@ package com.example.android.login_page;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
 import com.example.android.login_page.DAO.CustomerContactDao;
 import com.example.android.login_page.DAO.CustomerDao;
 import com.example.android.login_page.DAO.ItemDao;
@@ -20,10 +24,12 @@ import com.example.android.login_page.DAO.TransactionDao;
 import com.example.android.login_page.DAO.TransactionUpdateItemDao;
 import com.example.android.login_page.DataBaseHelper.DBHelper;
 import com.example.android.login_page.Entity.Admin;
+import com.example.android.login_page.Entity.Customer;
 import com.example.android.login_page.Entity.Item;
 import com.example.android.login_page.Entity.Transaction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AddTransactionActivity extends AppCompatActivity {
@@ -62,13 +68,15 @@ public class AddTransactionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mOldCustomer.setChecked(false);
+                mCustomerMobile.setEnabled(false);
                 enableCustomerDetails();
             }
         });
         mAddOrRemoveItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TransactionDao.addDummyTransaction(transactionId,admin.getAdminID());
+                Log.d("In Else",String.valueOf(transactionId));
+                TransactionDao.addDummyTransaction(dbHelper.getWritableDatabase(),transactionId,admin.getAdminID());
                 Bundle bundle = getTransactionBundle();
                 Intent intent = new Intent(AddTransactionActivity.this,AddOrRemoveItemsActivity.class);
                 intent.putExtra("admin",admin);
@@ -90,8 +98,14 @@ public class AddTransactionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(validateFields()){
-                    // TODO: add case for new customer here
-                    int customerId = CustomerContactDao.getCustomerId(dbHelper.getReadableDatabase(),mCustomerMobile.getText().toString());
+                    int customerId;
+                    if(mOldCustomer.isChecked()){
+                        customerId = CustomerContactDao.getCustomerId(dbHelper.getReadableDatabase(),mCustomerMobile.getText().toString());
+                    }
+                    else{
+                        Customer newCustomer = getNewCustomer();
+                        customerId = CustomerDao.addNewCustomer(dbHelper.getWritableDatabase(),newCustomer);
+                    }
                     TransactionDao.updateDummyTransaction(dbHelper.getWritableDatabase(),transactionId,customerId);
                     ItemDao.updateQuantity(dbHelper.getWritableDatabase(),transactionId);
                     Intent intent = new Intent(AddTransactionActivity.this,TransactionsActivity.class);
@@ -100,6 +114,13 @@ public class AddTransactionActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private Customer getNewCustomer() {
+        ArrayList<String> phoneNos = new ArrayList<>();
+        phoneNos.add(mPhone1.getText().toString());
+        phoneNos.add(mPhone2.getText().toString());
+        return new Customer(-1,1,mCustomerName.getText().toString(),phoneNos,mStreet.getText().toString(),mCity.getText().toString(),mHouseNumber.getText().toString());
     }
 
     private Bundle getTransactionBundle() {
@@ -112,11 +133,35 @@ public class AddTransactionActivity extends AppCompatActivity {
         bundle.putString("city",mCity.getText().toString());
         bundle.putString("houseNumber",mHouseNumber.getText().toString());
         bundle.putString("customerMobile",mCustomerMobile.getText().toString());
+        bundle.putInt("tid",transactionId);
         return bundle;
     }
 
     private boolean validateFields() {
-        return true;
+        mAwesomeValidation.addValidation(this, R.id.et_items, new SimpleCustomValidation() {
+            @Override
+            public boolean compare(String s) {
+                return !s.equals(getString(R.string.no_items_selected));
+            }
+        },R.string.no_items_selected);
+        if(mOldCustomer.isChecked()){
+            mAwesomeValidation.addValidation(this, R.id.et_customer_mobile, new SimpleCustomValidation() {
+                @Override
+                public boolean compare(String s) {
+                    return CustomerContactDao.customerMobileExists(dbHelper.getReadableDatabase(),s);
+                }
+            },R.string.mobile_not_found);
+            return mAwesomeValidation.validate();
+        }
+        else{
+            mAwesomeValidation.addValidation(this,R.id.et_customer_name, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+            mAwesomeValidation.addValidation(this,R.id.et_phone1, RegexTemplate.TELEPHONE,R.string.invalid_mobile);
+            mAwesomeValidation.addValidation(this,R.id.et_phone2, RegexTemplate.TELEPHONE,R.string.invalid_mobile);
+            mAwesomeValidation.addValidation(this,R.id.et_street, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+            mAwesomeValidation.addValidation(this,R.id.et_city, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+            mAwesomeValidation.addValidation(this,R.id.et_house_number, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+            return mAwesomeValidation.validate();
+        }
     }
 
     private void populateFields() {
@@ -148,8 +193,8 @@ public class AddTransactionActivity extends AppCompatActivity {
             mStreet.setText(street);
             mCity.setText(city);
             mHouseNumber.setText(houseNumber);
-            populateSelectedItems();
         }
+        populateSelectedItems();
 
     }
 
@@ -182,7 +227,9 @@ public class AddTransactionActivity extends AppCompatActivity {
             return bundle.getInt("tid");
         }
         else{
-            return TransactionDao.generateNewTid(readableDatabase);
+            int tid =  TransactionDao.generateNewTid(readableDatabase);
+            Log.println(Log.INFO,"In Else",String.valueOf(tid));
+            return tid;
         }
     }
 
@@ -201,6 +248,7 @@ public class AddTransactionActivity extends AppCompatActivity {
             }
             mSelectedItems.append("TOTAL    =    " + total);
         }
+
     }
 
     private void disableCustomerDetails() {

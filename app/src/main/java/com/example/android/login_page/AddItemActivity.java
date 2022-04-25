@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.example.android.login_page.DAO.ItemDao;
 import com.example.android.login_page.DAO.WorkerContactDao;
 import com.example.android.login_page.DAO.WorkerDao;
@@ -81,6 +82,12 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     private boolean validateFields() {
-        return true;
+        mAwesomeValidation.addValidation(this,R.id.et_item_name, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.et_price, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.et_size, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.et_quantity, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.et_brand, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        mAwesomeValidation.addValidation(this,R.id.et_category, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
+        return mAwesomeValidation.validate();
     }
 }

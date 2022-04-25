@@ -1,5 +1,6 @@
 package com.example.android.login_page.DAO;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -81,5 +82,27 @@ public class CustomerDao implements BaseColumns {
         int numberOfVisits = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_NUMBER_OF_VISITS));
         List<String> phoneNumbers = CustomerContactDao.getPhoneNumbers(readableDatabase,id);
         return new Customer(id,numberOfVisits,name,(ArrayList<String>) phoneNumbers,street,city,houseNo);
+    }
+
+    public static int addNewCustomer(SQLiteDatabase writableDatabase, Customer newCustomer) {
+        Cursor cursor = writableDatabase.query(TABLE_NAME,null,null,null,null,null,null);
+        int customerId;
+        if(cursor.getCount() == 0){
+            customerId = 1;
+        }
+        else{
+            cursor.moveToLast();
+            customerId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CUSTOMER_ID)) + 1;
+        }
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_CUSTOMER_NAME,newCustomer.getCustomerName());
+        values.put(COLUMN_NAME_NUMBER_OF_VISITS,newCustomer.getNumberOfVisits());
+        values.put(COLUMN_NAME_CITY,newCustomer.getCity());
+        values.put(COLUMN_NAME_STREET,newCustomer.getStreet());
+        values.put(COLUMN_NAME_HOUSE_NO,newCustomer.getHouseNumber());
+        values.put(COLUMN_NAME_CUSTOMER_ID,customerId);
+        writableDatabase.insert(TABLE_NAME,null,values);
+        CustomerContactDao.addNewContact(writableDatabase,customerId,newCustomer.getPhoneNumbers());
+        return customerId;
     }
 }

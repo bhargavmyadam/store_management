@@ -24,6 +24,7 @@ public class AddOrRemoveItemsActivity extends AppCompatActivity {
     Item[] items;
     SearchView mItemSearch;
     DBHelper dbHelper;
+    Bundle transactionBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class AddOrRemoveItemsActivity extends AppCompatActivity {
         dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        transactionBundle = getIntent().getBundleExtra("transactionBundle");
         mItemSearch.
 
                 setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -76,7 +78,7 @@ public class AddOrRemoveItemsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(AddOrRemoveItemsActivity.this,AddTransactionActivity.class);
                 intent.putExtra("admin",admin);
-                intent.putExtra("transactionBundle",getIntent().getBundleExtra("transactionBundle"));
+                intent.putExtra("transactionBundle",transactionBundle);
                 startActivity(intent);
             }
         });
@@ -88,6 +90,7 @@ public class AddOrRemoveItemsActivity extends AppCompatActivity {
             Intent intent = new Intent(AddOrRemoveItemsActivity.this,TransactionItemQuantity.class);
             intent.putExtra("item",item);
             intent.putExtra("admin",admin);
+            intent.putExtra("transactionBundle",transactionBundle);
             startActivity(intent);
         }
     }

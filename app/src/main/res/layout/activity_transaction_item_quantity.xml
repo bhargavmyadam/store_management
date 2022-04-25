@@ -1,9 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TransactionItemQuantity">
+    android:orientation="vertical"
+    tools:context=".AddItemActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/md_purple_100">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bt_back"
+            android:layout_width="75dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:clickable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/md_purple_100"
+            android:text="ADD QUANTITY"
+            android:textAlignment="center"
+            android:textColor="@color/md_teal_300"
+            android:fontFamily="@font/baloo_bhaina"
+            android:textSize="22sp"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/md_yellow_50">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="AVAILABLE QUANTITY"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_available_qty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:enabled="false"
+                >
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="SELECTED QUANTITY"
+                android:textColor="@color/md_teal_300"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/MyMaterialTheme"
+                android:valueFrom="1"
+                android:valueTo="100"
+                android:stepSize="1"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="35dp">
+            </View>
+            <Button
+                android:id="@+id/bt_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo_bhaina"
+                android:background="@color/md_purple_100"
+                android:textColor="@color/md_teal_300"
+                android:padding="5dp"
+                android:layout_margin="10dp"
+                android:text="ADD TO TRANSACTION"
+                android:shadowRadius="@integer/material_motion_duration_long_2">
+            </Button>
+            <Button
+                android:id="@+id/bt_remove"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo_bhaina"
+                android:background="@color/md_purple_100"
+                android:textColor="@color/md_teal_300"
+                android:padding="5dp"
+                android:layout_margin="10dp"
+                android:text="REMOVE FROM TRANSACTION"
+                android:shadowRadius="@integer/material_motion_duration_long_2">
+            </Button>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+</LinearLayout>
+
