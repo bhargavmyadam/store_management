@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">login_page</string>
+    <string name="app_name">Management System</string>
     <string name="text_signin_message">SIGN IN</string>
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
