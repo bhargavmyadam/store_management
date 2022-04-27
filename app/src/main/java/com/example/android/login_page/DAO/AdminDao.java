@@ -50,4 +50,21 @@ public class AdminDao implements BaseColumns {
         cursor.moveToNext();
         return cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_ADMIN_NAME));
     }
+
+    public static void updateDataBase(SQLiteDatabase writableDatabase, Admin admin) {
+        String selection = COLUMN_NAME_ADMIN_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(admin.getAdminID())};
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_EMAIL,admin.getEmail());
+        values.put(COLUMN_NAME_ADMIN_NAME,admin.getAdminName());
+        writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
+    }
+
+    public static String getAdminEmail(SQLiteDatabase db, int adminId) {
+        String selection = COLUMN_NAME_ADMIN_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(adminId)};
+        Cursor cursor = db.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        cursor.moveToNext();
+        return cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_EMAIL));
+    }
 }

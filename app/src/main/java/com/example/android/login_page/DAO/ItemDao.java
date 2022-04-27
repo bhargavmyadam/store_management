@@ -5,12 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
-import androidx.core.app.NavUtils;
-
 import com.example.android.login_page.Entity.Item;
-import com.example.android.login_page.Entity.Worker;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -93,7 +89,7 @@ public class ItemDao implements BaseColumns {
         return values;
     }
 
-    public static void updateDatabase(SQLiteDatabase writableDatabase, int itemId, int adminID, int qty) {
+    public static void updateDatabase(SQLiteDatabase writableDatabase, int itemId, int adminID, int qty, int price) {
         String selection = COLUMN_NAME_ITEM_ID + " = ? ";
         String[] selectionArgs = {String.valueOf(itemId)};
         Cursor cursor = writableDatabase.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
@@ -101,6 +97,7 @@ public class ItemDao implements BaseColumns {
         int newQty = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUANTITY)) + qty;
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_QUANTITY,newQty);
+        values.put(COLUMN_NAME_PRICE,price);
         writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
         AdminAddItemDao.updateDatabase(writableDatabase,itemId,adminID,qty);
     }
@@ -143,5 +140,15 @@ public class ItemDao implements BaseColumns {
             values.put(COLUMN_NAME_QUANTITY,cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUANTITY)) - items.get(itemId));
             writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
         }
+    }
+
+    public static void removeItemStock(SQLiteDatabase writableDatabase, int itemId) {
+        String selection = COLUMN_NAME_ITEM_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(itemId)};
+        Cursor cursor = writableDatabase.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        cursor.moveToNext();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_QUANTITY,0);
+        writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
     }
 }

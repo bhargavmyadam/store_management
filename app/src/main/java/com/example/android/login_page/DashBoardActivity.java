@@ -17,6 +17,7 @@ public class DashBoardActivity extends AppCompatActivity {
     LinearLayout mCustomers;
     LinearLayout mItems;
     LinearLayout mTransactions;
+    LinearLayout mMiscellaneous;
     Button mLogoutButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class DashBoardActivity extends AppCompatActivity {
         mCustomers = findViewById(R.id.ll_customers);
         mItems = findViewById(R.id.ll_items);
         mTransactions = findViewById(R.id.ll_transactions);
+        mMiscellaneous = findViewById(R.id.ll_miscellaneous);
         mLogoutButton = findViewById(R.id.bt_logout);
         mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +75,14 @@ public class DashBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(DashBoardActivity.this,TransactionsActivity.class);
+                intent1.putExtra("admin",admin);
+                startActivity(intent1);
+            }
+        });
+        mMiscellaneous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(DashBoardActivity.this,MiscellaneousFunctionsActivity.class);
                 intent1.putExtra("admin",admin);
                 startActivity(intent1);
             }

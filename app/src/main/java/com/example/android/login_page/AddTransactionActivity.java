@@ -101,6 +101,7 @@ public class AddTransactionActivity extends AppCompatActivity {
                     int customerId;
                     if(mOldCustomer.isChecked()){
                         customerId = CustomerContactDao.getCustomerId(dbHelper.getReadableDatabase(),mCustomerMobile.getText().toString());
+                        CustomerDao.incrementNumberOfVisits(dbHelper.getWritableDatabase(),customerId);
                     }
                     else{
                         Customer newCustomer = getNewCustomer();

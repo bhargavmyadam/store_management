@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/md_yellow_50"
-    tools:context=".AdminActivity">
+    tools:context=".MiscellaneousFunctionsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,81 +13,68 @@
         android:orientation="horizontal"
         android:background="@color/md_purple_100">
 
-
-
         <TextView
-            android:layout_width="237dp"
-            android:layout_height="43dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/md_purple_100"
-            android:text="ADMIN"
+            android:text="MISCELLANEOUS FUNCTIONS"
             android:textAlignment="center"
             android:textColor="@color/md_teal_300"
             android:fontFamily="@font/baloo_bhaina"
-            android:textSize="22sp"/>
-        <Button
-            android:id="@+id/bt_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/md_red_300"
-            android:text="EDIT">
-        </Button>
+            android:textSize="26sp"/>
+
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/md_yellow_50">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/md_yellow_50">
-            <TextView
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+            </View>
+            <Button
+                android:id="@+id/bt_item_log"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="NAME"
+                android:text="ITEM ADDITION/REMOVAL LOG"
                 android:textColor="@color/md_teal_300"
-                android:background="@color/md_yellow_50"
+                android:background="@color/md_purple_100"
                 android:padding="10dp"
-                android:fontFamily="@font/googlesans_bold">
-            </TextView>
-            <EditText
-                android:id="@+id/et_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                >
-            </EditText>
+                android:fontFamily="@font/googlesans_bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+            </Button>
+
             <View
                 android:layout_width="match_parent"
-                android:layout_height="15dp">
+                android:layout_height="100dp">
             </View>
-
-            <TextView
+            <Button
+                android:id="@+id/bt_sales"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="EMAIL"
+                android:text="SALES"
                 android:textColor="@color/md_teal_300"
-                android:background="@color/md_yellow_50"
+                android:background="@color/md_purple_100"
                 android:padding="10dp"
-                android:fontFamily="@font/googlesans_bold">
-            </TextView>
-            <EditText
-                android:id="@+id/et_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:inputType="numberSigned">
-            </EditText>
+                android:fontFamily="@font/googlesans_bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+            </Button>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="15dp">
+                android:layout_height="100dp">
             </View>
-
-
 
 
 

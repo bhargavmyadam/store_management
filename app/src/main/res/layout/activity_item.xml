@@ -14,8 +14,16 @@
         android:background="@color/md_purple_100">
 
 
+        <Button
+            android:id="@+id/bt_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/md_red_300"
+            android:text="REMOVE">
+        </Button>
+
         <TextView
-            android:layout_width="270dp"
+            android:layout_width="237dp"
             android:layout_height="43dp"
             android:layout_gravity="center"
             android:background="@color/md_purple_100"
@@ -26,7 +34,7 @@
             android:textSize="22sp"/>
         <Button
             android:id="@+id/bt_edit"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/md_red_300"
             android:text="EDIT">
@@ -70,6 +78,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                android:text="REMOVE QUANTITY"
+                android:textColor="@color/md_teal_700"
+                android:background="@color/md_yellow_50"
+                android:padding="10dp"
+                android:fontFamily="@font/googlesans_bold">
+            </TextView>
+            <EditText
+                android:id="@+id/et_remove_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:inputType="number"
+                android:text="0"
+                >
+            </EditText>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </View>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:text="NAME"
                 android:textColor="@color/md_teal_300"
                 android:background="@color/md_yellow_50"
@@ -93,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:text="PRICE"
-                android:textColor="@color/md_teal_300"
+                android:textColor="@color/md_teal_700"
                 android:background="@color/md_yellow_50"
                 android:padding="10dp"
                 android:fontFamily="@font/googlesans_bold">

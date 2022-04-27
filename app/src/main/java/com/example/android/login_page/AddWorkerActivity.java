@@ -62,7 +62,7 @@ public class AddWorkerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(validateFields()){
                     ContentValues values = new ContentValues();
-                    values.put(WorkerDao.COLUMN_NAME_WORKER_NAME,mWorkerName.getText().toString());
+                    values.put(WorkerDao.COLUMN_NAME_WORKER_NAME,mWorkerName.getText().toString().toLowerCase());
                     values.put(WorkerDao.COLUMN_NAME_WORKER_SALARY, Integer.parseInt(mSalary.getText().toString()));
                     values.put(WorkerDao.COLUMN_NAME_STREET,mStreet.getText().toString());
                     values.put(WorkerDao.COLUMN_NAME_CITY,mCity.getText().toString());

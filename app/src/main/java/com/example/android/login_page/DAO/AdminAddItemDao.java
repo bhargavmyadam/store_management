@@ -4,10 +4,14 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.android.login_page.Entity.AdminItem;
+import com.example.android.login_page.Entity.Customer;
 import com.example.android.login_page.Entity.Item;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminAddItemDao {
     public static final String TABLE_NAME="ADMIN_ADD_ITEM";
@@ -52,5 +56,42 @@ public class AdminAddItemDao {
             values.put(COLUMN_NAME_QUANTITY,cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUANTITY))+qty);
             writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
         }
+    }
+
+    public static AdminItem[] getFullLog(SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_NAME,null,null,null,null,null,null);
+        List<AdminItem> itemLog = new ArrayList<>();
+        while(cursor.moveToNext()){
+            int adminId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_ADMIN_ID));
+            int itemId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_ITEM_ID));
+            int quantity = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUANTITY));
+            String date = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_DATE));
+            AdminItem adminItem = new AdminItem(adminId,itemId,quantity,date);
+            itemLog.add(adminItem);
+        }
+        AdminItem[] fullLog = new AdminItem[itemLog.size()];
+        for (int i = 0; i < itemLog.size(); i++) {
+            fullLog[i] = itemLog.get(i);
+        }
+        return fullLog;
+    }
+
+    public static AdminItem[] getLogByDate(SQLiteDatabase db, String date) {
+        String selection = COLUMN_NAME_DATE + " = ?";
+        String[] selectionArgs = {date};
+        Cursor cursor = db.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        List<AdminItem> itemLog = new ArrayList<>();
+        while(cursor.moveToNext()){
+            int adminId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_ADMIN_ID));
+            int itemId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_ITEM_ID));
+            int quantity = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUANTITY));
+            AdminItem adminItem = new AdminItem(adminId,itemId,quantity,date);
+            itemLog.add(adminItem);
+        }
+        AdminItem[] fullLog = new AdminItem[itemLog.size()];
+        for (int i = 0; i < itemLog.size(); i++) {
+            fullLog[i] = itemLog.get(i);
+        }
+        return fullLog;
     }
 }

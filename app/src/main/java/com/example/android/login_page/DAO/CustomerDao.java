@@ -105,4 +105,16 @@ public class CustomerDao implements BaseColumns {
         CustomerContactDao.addNewContact(writableDatabase,customerId,newCustomer.getPhoneNumbers());
         return customerId;
     }
+
+    public static void incrementNumberOfVisits(SQLiteDatabase writableDatabase, int customerId) {
+        int numberOfVisits;
+        String selection = COLUMN_NAME_CUSTOMER_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(customerId)};
+        Cursor cursor = writableDatabase.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        cursor.moveToNext();
+        numberOfVisits = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_NUMBER_OF_VISITS));
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_NUMBER_OF_VISITS,numberOfVisits+1);
+        writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
+    }
 }

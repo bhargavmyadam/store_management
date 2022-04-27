@@ -243,18 +243,19 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center"
+                    android:id="@+id/ll_miscellaneous"
                     >
 
                     <ImageView
-                        android:layout_width="110dp"
-                        android:layout_height="93dp"
-                        android:src="@drawable/sales"
-                        android:layout_marginTop="18dp"/>
+                        android:layout_width="116dp"
+                        android:layout_height="107dp"
+                        android:layout_marginTop="18dp"
+                        android:src="@drawable/sales" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sales"
+                        android:text="MISCELLANEOUS"
                         android:fontFamily="@font/googlesans_bold"
                         android:textSize="18sp"
                         android:textColor="@color/white"

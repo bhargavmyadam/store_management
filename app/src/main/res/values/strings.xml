@@ -51,5 +51,6 @@
     <string name="add_to_transaction">ADD TO TRANSACTION</string>
     <string name="mobile_not_found">Mobile Number Not Found</string>
     <string name="empty_items">No Items are selected</string>
+    <string name="invalid_quantity">Stock not available</string>
 
 </resources>
