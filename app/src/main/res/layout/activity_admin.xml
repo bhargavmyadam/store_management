@@ -80,8 +80,7 @@
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:inputType="numberSigned">
+                android:padding="10dp">
             </EditText>
             <View
                 android:layout_width="match_parent"

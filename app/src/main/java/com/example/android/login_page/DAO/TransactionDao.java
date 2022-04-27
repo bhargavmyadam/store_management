@@ -8,6 +8,7 @@ import android.provider.BaseColumns;
 import com.example.android.login_page.Entity.Transaction;
 import com.example.android.login_page.Entity.Worker;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -97,5 +98,14 @@ public class TransactionDao implements BaseColumns {
         String selection = COLUMN_NAME_TID + " = ?";
         String[] selectionArgs = {String.valueOf(transactionId)};
         writableDatabase.delete(TABLE_NAME,selection,selectionArgs);
+    }
+
+    public static LocalDate getTransactionDate(SQLiteDatabase db, int tid) {
+        String selection = COLUMN_NAME_TID + " = ?";
+        String[] selectionArgs = {String.valueOf(tid)};
+        Cursor cursor = db.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        cursor.moveToNext();
+        String date = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_T_DATE));
+        return LocalDate.parse(date);
     }
 }

@@ -34,7 +34,9 @@ public class MiscellaneousFunctionsActivity extends AppCompatActivity {
         mSales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                return;
+                Intent intent1 = new Intent(MiscellaneousFunctionsActivity.this,SalesActivity.class);
+                intent1.putExtra("admin",admin);
+                startActivity(intent1);
             }
         });
         mHomeButton.setOnClickListener(new View.OnClickListener() {

@@ -151,4 +151,15 @@ public class ItemDao implements BaseColumns {
         values.put(COLUMN_NAME_QUANTITY,0);
         writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
     }
+
+    public static ArrayList<Integer> getItemIdsByName(SQLiteDatabase db, String s) {
+        String selection = COLUMN_NAME_ITEM_NAME + " = ?";
+        String[] selectionArgs = {s};
+        Cursor cursor = db.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        ArrayList<Integer> itemIds = new ArrayList<>();
+        while (cursor.moveToNext()){
+            itemIds.add(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_ITEM_ID)));
+        }
+        return itemIds;
+    }
 }

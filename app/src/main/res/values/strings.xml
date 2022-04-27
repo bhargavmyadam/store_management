@@ -52,5 +52,6 @@
     <string name="mobile_not_found">Mobile Number Not Found</string>
     <string name="empty_items">No Items are selected</string>
     <string name="invalid_quantity">Stock not available</string>
+    <string name="invalid_date">Invalid Date Format</string>
 
 </resources>

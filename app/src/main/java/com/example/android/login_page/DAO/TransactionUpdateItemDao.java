@@ -5,7 +5,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
+import com.example.android.login_page.Entity.SalesItem;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 
 public class TransactionUpdateItemDao implements BaseColumns {
     public static final String TABLE_NAME="TRANSACTION_UPDATE_ITEM";
@@ -61,5 +69,86 @@ public class TransactionUpdateItemDao implements BaseColumns {
         String selection = COLUMN_NAME_TID + " = ? AND " + COLUMN_NAME_ITEM_ID + " = ?";
         String[] selectionArgs = {String.valueOf(tid),String.valueOf(itemId)};
         writableDatabase.delete(TABLE_NAME,selection,selectionArgs);
+    }
+
+    public static SalesItem[] getSales(SQLiteDatabase db, String startDate, String endDate) {
+        Cursor cursor = db.query(TABLE_NAME,null,null,null,null,null,null);
+        HashMap<Integer,Integer> sales = new HashMap<>();
+        while(cursor.moveToNext()){
+            LocalDate date = TransactionDao.getTransactionDate(db,cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_TID)));
+            if(date.isAfter(LocalDate.parse(startDate)) && date.isBefore(LocalDate.parse(endDate))){
+                int itemId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_ITEM_ID));
+                int qty = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUANTITY));
+                if(sales.containsKey(itemId)){
+                    sales.put(itemId,sales.get(itemId)+qty);
+                }
+                else{
+                    sales.put(itemId,qty);
+                }
+            }
+        }
+        ArrayList<SalesItem> salesItems = new ArrayList<>();
+        for(int itemId : sales.keySet()){
+            SalesItem salesItem = new SalesItem(itemId,sales.get(itemId));
+            salesItems.add(salesItem);
+        }
+        salesItems.sort(new Comparator<SalesItem>() {
+            @Override
+            public int compare(SalesItem salesItem1, SalesItem salesItem2) {
+                if (salesItem1.getQuantity() == salesItem2.getQuantity())
+                    return 0;
+                else if (salesItem1.getQuantity() > salesItem2.getQuantity())
+                    return -1;
+                else
+                    return 1;
+            }
+        });
+        SalesItem[] result = new SalesItem[salesItems.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = salesItems.get(i);
+        }
+        return result;
+    }
+
+    public static SalesItem[] getSalesByItemName(SQLiteDatabase db, String s, String startDate, String endDate) {
+        Cursor cursor = db.query(TABLE_NAME,null,null,null,null,null,null);
+        HashMap<Integer,Integer> sales = new HashMap<>();
+        while(cursor.moveToNext()){
+            LocalDate date = TransactionDao.getTransactionDate(db,cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_TID)));
+            if(date.isAfter(LocalDate.parse(startDate)) && date.isBefore(LocalDate.parse(endDate))){
+                int itemId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_ITEM_ID));
+                int qty = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUANTITY));
+                if(sales.containsKey(itemId)){
+                    sales.put(itemId,sales.get(itemId)+qty);
+                }
+                else{
+                    sales.put(itemId,qty);
+                }
+            }
+        }
+        ArrayList<Integer> itemIds = ItemDao.getItemIdsByName(db,s);
+        ArrayList<SalesItem> salesItems = new ArrayList<>();
+        for(int itemId : sales.keySet()){
+            if(itemIds.contains(itemId)){
+                SalesItem salesItem = new SalesItem(itemId,sales.get(itemId));
+                salesItems.add(salesItem);
+            }
+        }
+        salesItems.sort(new Comparator<SalesItem>() {
+            @Override
+            public int compare(SalesItem salesItem1, SalesItem salesItem2) {
+                if (salesItem1.getQuantity() == salesItem2.getQuantity())
+                    return 0;
+                else if (salesItem1.getQuantity() > salesItem2.getQuantity())
+                    return -1;
+                else
+                    return 1;
+            }
+        });
+        SalesItem[] result = new SalesItem[salesItems.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = salesItems.get(i);
+        }
+        return result;
     }
 }

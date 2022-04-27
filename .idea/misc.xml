@@ -17,10 +17,11 @@
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_admin_item_log.xml" value="0.25677083333333334" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_customer.xml" value="0.1" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_customers.xml" value="0.25677083333333334" />
-        <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_dash_board.xml" value="0.1" />
+        <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_dash_board.xml" value="0.128" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_item.xml" value="0.25677083333333334" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_items.xml" value="0.25677083333333334" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_miscellaneous_functions.xml" value="0.25677083333333334" />
+        <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_sales.xml" value="0.24114583333333334" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_sign_up.xml" value="0.2140625" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_transaction.xml" value="0.25677083333333334" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/activity_transaction_item_quantity.xml" value="0.264" />
@@ -30,6 +31,7 @@
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/admin_item_card.xml" value="0.25677083333333334" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/customer_card.xml" value="0.23229166666666667" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/item_card.xml" value="0.25677083333333334" />
+        <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/sales_item_card.xml" value="0.25677083333333334" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/transaction_card.xml" value="0.25677083333333334" />
         <entry key="..\:/StudioProjects/store_management/app/src/main/res/layout/worker_item.xml" value="0.1" />
       </map>
