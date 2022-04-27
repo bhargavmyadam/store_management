@@ -62,6 +62,7 @@ public class AddTransactionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mNewCustomer.setChecked(false);
                 disableCustomerDetails();
+                mCustomerMobile.setEnabled(true);
             }
         });
         mNewCustomer.setOnClickListener(new View.OnClickListener() {
@@ -156,8 +157,8 @@ public class AddTransactionActivity extends AppCompatActivity {
         }
         else{
             mAwesomeValidation.addValidation(this,R.id.et_customer_name, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
-            mAwesomeValidation.addValidation(this,R.id.et_phone1, RegexTemplate.TELEPHONE,R.string.invalid_mobile);
-            mAwesomeValidation.addValidation(this,R.id.et_phone2, RegexTemplate.TELEPHONE,R.string.invalid_mobile);
+            mAwesomeValidation.addValidation(this,R.id.et_phone1, "^[0-9]{10}$",R.string.invalid_mobile);
+            mAwesomeValidation.addValidation(this,R.id.et_phone2, "^[0-9]{10}$",R.string.invalid_mobile);
             mAwesomeValidation.addValidation(this,R.id.et_street, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
             mAwesomeValidation.addValidation(this,R.id.et_city, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
             mAwesomeValidation.addValidation(this,R.id.et_house_number, RegexTemplate.NOT_EMPTY,R.string.empty_fields);

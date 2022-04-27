@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
 import com.example.android.login_page.DAO.AdminDao;
 import com.example.android.login_page.DataBaseHelper.DBHelper;
 
@@ -71,6 +72,12 @@ public class SignUpActivity extends AppCompatActivity {
     public boolean validateFields(){
         mAwesomeValidation.addValidation(this,R.id.et_fullname, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
         mAwesomeValidation.addValidation(this,R.id.userEmailId, "^(.+)@(.+)$",R.string.invalid_email);
+        mAwesomeValidation.addValidation(this, R.id.userEmailId, new SimpleCustomValidation() {
+            @Override
+            public boolean compare(String s) {
+                return !AdminDao.emailAlreadyPresent(dbHelper.getReadableDatabase(),s);
+            }
+        }, R.string.invalid_email);
         mAwesomeValidation.addValidation(this,R.id.password,"^(.{8,32})$",R.string.invalid_password);
         if(mAwesomeValidation.validate()){
             if(mPassword.getText().toString().equals(mConfirmPassword.getText().toString())){

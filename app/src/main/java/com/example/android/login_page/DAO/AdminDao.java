@@ -67,4 +67,11 @@ public class AdminDao implements BaseColumns {
         cursor.moveToNext();
         return cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_EMAIL));
     }
+
+    public static boolean emailAlreadyPresent(SQLiteDatabase readableDatabase, String email) {
+        String selection = COLUMN_NAME_EMAIL + " = ?";
+        String[] selectionArgs = {String.valueOf(email)};
+        Cursor cursor = readableDatabase.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        return cursor.getCount() != 0;
+    }
 }

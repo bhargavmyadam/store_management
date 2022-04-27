@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
 import com.example.android.login_page.DAO.AdminDao;
 import com.example.android.login_page.DAO.WorkerDao;
 import com.example.android.login_page.DataBaseHelper.DBHelper;
@@ -101,8 +103,8 @@ public class WorkerActivity extends AppCompatActivity {
     private boolean validateFields() {
         mAwesomeValidation.addValidation(this,R.id.et_fullname, RegexTemplate.NOT_EMPTY,R.string.empty_fields);
         mAwesomeValidation.addValidation(this,R.id.et_salary,RegexTemplate.NOT_EMPTY,R.string.empty_fields);
-        mAwesomeValidation.addValidation(this,R.id.et_phone1,RegexTemplate.TELEPHONE,R.string.invalid_mobile);
-        mAwesomeValidation.addValidation(this,R.id.et_phone2,RegexTemplate.TELEPHONE,R.string.invalid_mobile);
+        mAwesomeValidation.addValidation(this, R.id.et_phone1, "^[0-9]{10}$", R.string.invalid_mobile);
+        mAwesomeValidation.addValidation(this, R.id.et_phone2, "^[0-9]{10}$", R.string.invalid_mobile);
         mAwesomeValidation.addValidation(this,R.id.et_street,RegexTemplate.NOT_EMPTY,R.string.empty_fields);
         mAwesomeValidation.addValidation(this,R.id.et_city,RegexTemplate.NOT_EMPTY,R.string.empty_fields);
         mAwesomeValidation.addValidation(this,R.id.et_house_number,RegexTemplate.NOT_EMPTY,R.string.empty_fields);

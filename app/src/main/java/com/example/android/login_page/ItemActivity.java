@@ -12,6 +12,7 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
+import com.example.android.login_page.DAO.AdminAddItemDao;
 import com.example.android.login_page.DAO.ItemDao;
 import com.example.android.login_page.DataBaseHelper.DBHelper;
 import com.example.android.login_page.Entity.Admin;
@@ -72,6 +73,7 @@ public class ItemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(mRemove.getText().toString().equals(getString(R.string.remove))){
                     ItemDao.removeItemStock(dbHelper.getWritableDatabase(),item.getItemId());
+                    AdminAddItemDao.removeItem(dbHelper.getWritableDatabase(),item.getItemId(),item.getQuantity());
                     Intent intent = new Intent(ItemActivity.this,ItemsActivity.class);
                     intent.putExtra("admin",admin);
                     startActivity(intent);

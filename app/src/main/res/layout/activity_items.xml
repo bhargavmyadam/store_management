@@ -28,11 +28,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
         android:layout_width="407dp"
         android:layout_height="52dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" >
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView">
 
     </com.google.android.material.navigation.NavigationView>
 
@@ -44,14 +45,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
         app:srcCompat="@drawable/ic_home_black_24dp" />
 
     <SearchView
         android:id="@+id/sv_item_name"
-        android:queryHint="Item Name"
         android:layout_width="283dp"
         android:layout_height="45dp"
         android:layout_marginTop="4dp"
+        android:queryHint="Item Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"

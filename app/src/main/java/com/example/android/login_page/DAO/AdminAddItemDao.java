@@ -94,4 +94,14 @@ public class AdminAddItemDao {
         }
         return fullLog;
     }
+
+    public static void removeItem(SQLiteDatabase writableDatabase, int itemId, int qty) {
+        String selection = COLUMN_NAME_ITEM_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(itemId)};
+        ContentValues values = new ContentValues();
+        Cursor cursor = writableDatabase.query(TABLE_NAME,null,selection,selectionArgs,null,null,null);
+        cursor.moveToNext();
+        values.put(COLUMN_NAME_QUANTITY,cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUANTITY))-qty);
+        writableDatabase.update(TABLE_NAME,values,selection,selectionArgs);
+    }
 }
