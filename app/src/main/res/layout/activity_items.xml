@@ -41,6 +41,7 @@
         android:id="@+id/bt_home"
         android:layout_width="136dp"
         android:layout_height="57dp"
+        android:layout_marginTop="5dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -56,4 +56,11 @@ public class DBHelper extends SQLiteOpenHelper{
         sqLiteDatabase.execSQL(TransactionUpdateItemDao.SQL_DELETE_TABLE);
         onCreate(sqLiteDatabase);
     }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys = ON");
+        db.execSQL("PRAGMA delete_on_cascade = ON");
+    }
 }
