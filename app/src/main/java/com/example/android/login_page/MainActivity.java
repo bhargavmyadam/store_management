@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         mImage.setAnimation(mTopAnimation);
         mEmail.setAnimation(mTopAnimation);
         mPassword.setAnimation(mTopAnimation);
+        mLoginButton.setAnimation(mBottomAnimation);
+        mRegisterButton.setAnimation(mBottomAnimation);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

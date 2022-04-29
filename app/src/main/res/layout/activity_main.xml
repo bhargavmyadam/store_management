@@ -129,22 +129,13 @@
                 android:id="@+id/tv_wrong_credentials"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:textSize="22sp"
                 android:text="@string/hint_wrong_credentials"
                 android:textAlignment="center"
-                android:textColor="@color/md_red_500">
-            </TextView>
+                android:textColor="@color/md_red_500"
+                android:textSize="22sp"
+                android:visibility="invisible">
 
-            <Button
-                android:id="@+id/button_forgot_password"
-                style="@style/TextyButton"
-                android:layout_width="199dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="0dp"
-                android:padding="10dp"
-                android:text="@string/text_forgot_password" />
+            </TextView>
 
             <Button
                 android:id="@+id/button_signin"
@@ -155,39 +146,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/button_sign_in" />
 
-            <LinearLayout
-                android:id="@+id/social_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/text_signin_social_media"
-                    android:textColor="@color/md_black_1000"
-                    android:textSize="12sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_margin="8dp"
-                        app:srcCompat="@drawable/ic_facebook" />
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_margin="8dp"
-                        app:srcCompat="@drawable/ic_twitter" />
-                </LinearLayout>
-            </LinearLayout>
 
             <Button
                 android:id="@+id/button_signup"
